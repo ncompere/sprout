@@ -11,6 +11,7 @@ struct PlantDetailView: View {
     @State private var errorMessage: String?
 
     var body: some View {
+        let wateredToday = plant.schedule.hasWatered(on: today)
         List {
             Section {
                 HStack(alignment: .center, spacing: 16) {
@@ -27,15 +28,18 @@ struct PlantDetailView: View {
                 Text(plant.schedule.nextDueDate(), format: .dateTime.weekday(.wide).day().month(.wide).year())
                     .foregroundStyle(.secondary)
                     .accessibilityIdentifier("plant.nextDue")
-                Button(action: water) {
-                    Label(plant.schedule.hasWatered(on: today) ? "Arrosée aujourd’hui" : "Arrosée", systemImage: "checkmark.drop")
+                Button(action: toggleWatering) {
+                    Label(wateredToday ? "Arrosée aujourd’hui" : "Arrosée",
+                          systemImage: wateredToday ? "checkmark.circle.fill" : "circle")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 6)
                 }
                 .buttonStyle(.borderedProminent)
-                .disabled(plant.schedule.hasWatered(on: today))
                 .accessibilityIdentifier("plant.water")
+                .accessibilityValue(wateredToday ? "Arrosage effectué" : "Arrosage non effectué")
+                .accessibilityHint(wateredToday ? "Annuler l’arrosage d’aujourd’hui" : "Enregistrer un arrosage aujourd’hui")
+                .accessibilityAddTraits(wateredToday ? .isSelected : [])
             }
             if let last = plant.waterings.map(\.date).max() {
                 Section("Dernier arrosage") {
@@ -65,9 +69,17 @@ struct PlantDetailView: View {
         .saveErrorAlert($errorMessage)
     }
 
-    private func water() {
-        do { try PlantStore(context: context).water(plant) }
-        catch { errorMessage = (error as? PlantStore.StoreError)?.errorDescription ?? "L’arrosage n’a pas été enregistré. Réessayez." }
+    private func toggleWatering() {
+        let now = Date.now
+        let watered = plant.schedule.hasWatered(on: now)
+        do {
+            let store = PlantStore(context: context)
+            if watered { try store.unwater(plant, on: now) }
+            else { try store.water(plant, on: now) }
+        } catch {
+            errorMessage = (error as? PlantStore.StoreError)?.errorDescription
+                ?? (watered ? "L’arrosage n’a pas été annulé. Réessayez." : "L’arrosage n’a pas été enregistré. Réessayez.")
+        }
     }
 
     private func delete() {

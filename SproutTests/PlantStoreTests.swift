@@ -85,6 +85,75 @@ final class PlantStoreTests: XCTestCase {
     }
 
     @MainActor
+    func testUndoFirstWateringRestoresInitialDateAndAllowsWateringAgain() async throws {
+        let container = try container()
+        let context = container.mainContext
+        let store = PlantStore(context: context)
+        let now = Date.now
+        let plant = try store.savePlant(name: "Ficus", intervalDays: 7, firstDueDate: now)
+        let due = plant.schedule.nextDueDate()
+        let earlierToday = WateringSchedule.calendar.startOfDay(for: now)
+        try store.water(plant, on: earlierToday)
+        try store.unwater(plant, on: now)
+        XCTAssertFalse(plant.schedule.hasWatered(on: now))
+        XCTAssertEqual(plant.schedule.nextDueDate(), due)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<Watering>()), 0)
+        // Unchecking an already unchecked day is harmless.
+        try store.unwater(plant, on: now)
+        try store.water(plant, on: now)
+        XCTAssertEqual(plant.waterings.count, 1)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<Watering>()), 1)
+    }
+
+    @MainActor
+    func testUndoKeepsOlderWateringsAndOtherPlants() async throws {
+        let container = try container()
+        let context = container.mainContext
+        let store = PlantStore(context: context)
+        let now = Date.now
+        let calendar = WateringSchedule.calendar
+        let oldDate = calendar.date(byAdding: .day, value: -8, to: now)!
+        let plant = try store.savePlant(name: "Ficus", intervalDays: 7, firstDueDate: oldDate)
+        let other = try store.savePlant(name: "Monstera", intervalDays: 7, firstDueDate: now)
+        try store.water(plant, on: oldDate)
+        let oldWateringID = try XCTUnwrap(plant.waterings.first?.id)
+        let due = plant.schedule.nextDueDate()
+        try store.water(plant, on: now)
+        try store.water(other, on: now)
+        try store.unwater(plant, on: now)
+        XCTAssertEqual(plant.waterings.map(\.id), [oldWateringID])
+        XCTAssertEqual(plant.schedule.nextDueDate(), due)
+        XCTAssertTrue(plant.schedule.isOverdue(on: now))
+        XCTAssertTrue(other.schedule.hasWatered(on: now))
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<Watering>()), 2)
+    }
+
+    @MainActor
+    func testFailedUndoRestoresWateringAndDeadline() async throws {
+        struct SimulatedFailure: Error { }
+        let container = try container()
+        let context = container.mainContext
+        let working = PlantStore(context: context)
+        let failing = PlantStore(context: context, saveChanges: { throw SimulatedFailure() })
+        let now = Date.now
+        let plant = try working.savePlant(name: "Ficus", intervalDays: 7, firstDueDate: now)
+        try working.water(plant, on: now)
+        let wateringID = try XCTUnwrap(plant.waterings.first?.id)
+        let due = plant.schedule.nextDueDate()
+        XCTAssertThrowsError(try failing.unwater(plant, on: now))
+        XCTAssertEqual(plant.waterings.map(\.id), [wateringID])
+        XCTAssertEqual(plant.waterings.first?.plant?.id, plant.id)
+        XCTAssertTrue(plant.schedule.hasWatered(on: now))
+        XCTAssertEqual(plant.schedule.nextDueDate(), due)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<Watering>()), 1)
+        XCTAssertFalse(context.hasChanges)
+        try working.savePlant(name: "Autre plante", intervalDays: 3, firstDueDate: now)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<Watering>()), 1)
+        try working.unwater(plant, on: now)
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<Watering>()), 0)
+    }
+
+    @MainActor
     func testDiskPersistenceAcrossContainers() async throws {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -109,6 +178,13 @@ final class PlantStoreTests: XCTestCase {
         XCTAssertEqual(plant.waterings.count, 1)
         XCTAssertEqual(plant.waterings.first?.date, now)
         XCTAssertEqual(plant.waterings.first?.plant?.id, id)
+        try PlantStore(context: reopened.mainContext).unwater(plant, on: now)
+        let afterUndo = try container(inMemory: false, url: url)
+        let restored = try XCTUnwrap(afterUndo.mainContext.fetch(FetchDescriptor<Plant>()).first)
+        XCTAssertTrue(restored.waterings.isEmpty)
+        XCTAssertFalse(restored.schedule.hasWatered(on: now))
+        XCTAssertEqual(restored.schedule.nextDueDate(), WateringSchedule.calendar.startOfDay(for: now))
+        XCTAssertEqual(try afterUndo.mainContext.fetchCount(FetchDescriptor<Watering>()), 0)
     }
 
     @MainActor

@@ -74,6 +74,17 @@ struct PlantStore {
         try commit { plant.waterings = previousWaterings }
     }
 
+    func unwater(_ plant: Plant, on date: Date = .now) throws {
+        let calendar = WateringSchedule.calendar
+        let previousWaterings = plant.waterings
+        let waterings = previousWaterings.filter { calendar.isDate($0.date, inSameDayAs: date) }
+        guard !waterings.isEmpty else { return }
+        let ids = Set(waterings.map(\.id))
+        plant.waterings.removeAll { ids.contains($0.id) }
+        for watering in waterings { context.delete(watering) }
+        try commit { plant.waterings = previousWaterings }
+    }
+
     func delete(_ plant: Plant) throws {
         context.delete(plant)
         try commit()
