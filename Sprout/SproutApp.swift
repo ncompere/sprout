@@ -1,12 +1,12 @@
 import SwiftUI
 import SwiftData
+import Combine
 
 @main
 struct SproutApp: App {
     var body: some Scene {
         WindowGroup {
             StorageRootView()
-                .environment(\.locale, Locale(identifier: "fr_FR"))
                 .tint(SproutStyle.green)
                 .modifier(DebugTestPresentation())
         }
@@ -32,6 +32,9 @@ private struct DebugTestPresentation: ViewModifier {
 }
 
 private struct StorageRootView: View {
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var locale = Locale.current
+    @State private var presentationCalendar = CalendarPresentation.calendar(locale: .current)
     @State private var container: ModelContainer?
     @State private var storageError: String?
 
@@ -43,25 +46,38 @@ private struct StorageRootView: View {
                 ContentUnavailableView {
                     Label("Vos plantes sont indisponibles", systemImage: "externaldrive.badge.exclamationmark")
                 } description: {
-                    Text(storageError ?? "Ouverture de votre jardin…")
+                    Text(storageError ?? String(localized: "Ouverture de votre jardin…"))
                 } actions: {
                     Button("Réessayer", action: openStorage)
                 }
             }
         }
+        .environment(\.locale, locale)
+        .environment(\.calendar, presentationCalendar)
         .task { if container == nil { openStorage() } }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { refreshRegionalSettings() }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification)) { _ in
+            refreshRegionalSettings()
+        }
+    }
+
+    private func refreshRegionalSettings() {
+        locale = .current
+        presentationCalendar = CalendarPresentation.calendar(locale: locale)
     }
 
     private func openStorage() {
         do {
-            let schema = Schema([Plant.self, Watering.self])
+            let schema = Schema([Plant.self, Watering.self, Room.self])
             let configuration = ModelConfiguration(schema: schema, cloudKitDatabase: .none)
             let container = try ModelContainer(for: schema, configurations: [configuration])
             container.mainContext.autosaveEnabled = false
             self.container = container
             storageError = nil
         } catch {
-            storageError = "Impossible d’ouvrir les données. Réessayez pour retrouver vos plantes."
+            storageError = String(localized: "Impossible d’ouvrir les données. Réessayez pour retrouver vos plantes.")
         }
     }
 }
@@ -74,9 +90,9 @@ private struct SproutRootView: View {
     var body: some View {
         TabView {
             PlantListView(today: today)
-                .tabItem { Label("Mes plantes", systemImage: "leaf") }
+                .tabItem { Label("Mes plantes", systemImage: "leaf").accessibilityIdentifier("tab.plants") }
             WateringCalendarView(today: today)
-                .tabItem { Label("Calendrier", systemImage: "calendar") }
+                .tabItem { Label("Calendrier", systemImage: "calendar").accessibilityIdentifier("tab.calendar") }
         }
         .onReceive(clock) { today = $0 }
         .onChange(of: scenePhase) { _, phase in

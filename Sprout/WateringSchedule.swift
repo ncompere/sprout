@@ -8,7 +8,6 @@ struct WateringSchedule {
 
     static var calendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
-        calendar.locale = Locale(identifier: "fr_FR")
         calendar.timeZone = .autoupdatingCurrent
         calendar.firstWeekday = 2
         return calendar

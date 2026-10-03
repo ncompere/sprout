@@ -8,6 +8,7 @@ final class Plant {
     var intervalDays: Int
     var firstDueDate: Date
     var createdAt: Date
+    var room: Room?
     @Relationship(deleteRule: .cascade, inverse: \Watering.plant)
     var waterings: [Watering] = []
 
@@ -22,6 +23,21 @@ final class Plant {
     var schedule: WateringSchedule {
         WateringSchedule(intervalDays: intervalDays, firstDueDate: firstDueDate,
                          wateringDates: waterings.map(\.date))
+    }
+
+    var roomName: String { room?.name ?? String(localized: "Sans pièce") }
+}
+
+@Model
+final class Room {
+    @Attribute(.unique) var id: UUID
+    var name: String
+    @Relationship(deleteRule: .nullify, inverse: \Plant.room)
+    var plants: [Plant] = []
+
+    init(name: String) {
+        self.id = UUID()
+        self.name = name
     }
 }
 

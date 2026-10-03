@@ -1,66 +1,38 @@
 # Sprout
 
-Application iOS native en français pour suivre ses plantes d’intérieur et leurs arrosages. SwiftUI, SwiftData, iOS 17+, sans dépendance externe.
+A native iOS app in English and French for tracking indoor plants and their watering schedules. Built with SwiftUI and SwiftData, for iOS 17+, with no external dependencies.
 
-## Lancer l’application
+## Running the app
 
-1. Ouvrir `Sprout.xcodeproj` dans Xcode et sélectionner le schéma partagé **Sprout**.
-2. Choisir un simulateur iPhone avec iOS 17 ou une version ultérieure. Installer un runtime iOS depuis les réglages de Xcode si nécessaire.
-3. Lancer avec **⌘R**. Sur un iPhone physique, choisir son équipe dans **Signing & Capabilities** et un identifiant de bundle personnel.
+1. Open `Sprout.xcodeproj` in Xcode and select the shared **Sprout** scheme.
+2. Choose an iPhone simulator running iOS 17 or later. Install an iOS runtime from Xcode settings if needed.
+3. Run with **⌘R**. For a physical iPhone, select your team under **Signing & Capabilities** and use your own bundle identifier.
 
-Le dépôt contient le projet et le schéma : aucun générateur de projet ou gestionnaire de paquets n’est nécessaire.
+The repository includes the project and scheme: no project generator or package manager is required.
 
-## Utilisation
+## Using Sprout
 
-- **Mes plantes** : ajouter une plante, choisir son nom, sa première échéance et sa fréquence en jours (7 jours par défaut). Les plantes en retard sont regroupées en haut ; les autres sont triées par échéance.
-- **Fiche plante** : modifier le nom ou le planning, enregistrer un arrosage aujourd’hui, ou supprimer la plante après confirmation. Toucher à nouveau **Arrosée aujourd’hui** pour décocher et annuler l’arrosage du jour.
-- **Calendrier** : parcourir les mois et toucher un jour pour consulter les plantes concernées. Les symboles distinguent les arrosages prévus, effectués et en retard. Le bouton **Aujourd’hui** revient au jour courant.
+- **My plants**: add plants with a name, optional room, first due date, and watering interval in days (7 days by default). Switch between **By room** and **By watering**; Sprout remembers your choice. The watering view shows overdue plants first.
+- **Rooms**: use **Manage rooms** to create, rename, or delete rooms. You can also create a room from the plant form. Deleting a room moves its plants to **No room** and preserves their watering history.
+- **Plant details**: edit a plant's name, room, or schedule. Check **Watered today** to record a watering, or uncheck it to undo today's record. Deleting a plant also deletes its watering history.
+- **Calendar**: browse months and tap a day to view scheduled, completed, and overdue waterings across all rooms. Tap **Today** to return to the current day.
 
-La première échéance s’applique tant qu’aucun arrosage n’a été enregistré. Ensuite, la prochaine échéance correspond au dernier arrosage + la fréquence. Un arrosage anticipé ou tardif décale donc le planning. Une modification de fréquence utilise la même règle ; changer la première date n’affecte pas une plante déjà arrosée.
+The first due date applies until the first watering. After that, the next due date is the last watering date plus the interval, so watering early or late shifts the schedule. Undoing today's watering restores the schedule based on the previous record, or the first due date if none remains. An overdue watering stays a single pending task, without accumulating missed tasks.
 
-Décocher un arrosage supprime uniquement l’enregistrement du jour pour cette plante. Le planning reprend depuis l’arrosage précédent, ou depuis la première échéance si aucun arrosage ne reste. Le calendrier se met à jour et un nouvel arrosage peut être coché le même jour.
+## Languages and data
 
-Une échéance dépassée reste une seule tâche en attente. Les projections suivantes reprennent après l’arrosage, sans accumulation de tâches manquées. Les projections sont calculées pour le mois consulté ; elles ne sont pas des enregistrements définitifs. Les arrosages réellement effectués restent visibles dans le calendrier.
+Sprout supports English and French. iOS chooses the language from your preferences; you can also choose it in Sprout's system settings. Dates follow the active language, and the first day of the week follows your regional preferences. Watering schedules use calendar days in the iPhone's time zone.
 
-Les calculs portent sur des jours calendaires dans le fuseau de l’iPhone, y compris lors des changements d’heure. Une plante ne peut être marquée comme arrosée qu’une fois par jour. Les dates et statuts se rafraîchissent au retour dans l’application et chaque minute lorsqu’elle est ouverte.
+Plants, rooms, and watering history are stored locally on the device. Changing the language preserves your data. The app requires no account and has no CloudKit synchronization.
 
-## Données et architecture
+The current app does not include notifications, photos, or plant identification, and is not yet published on the App Store.
 
-Les plantes et leurs arrosages sont conservés dans un stockage SwiftData local, sans compte ni synchronisation CloudKit. La suppression d’une plante supprime ses arrosages associés. Les sauvegardes sont explicites : un échec annule la mutation et présente une erreur ; le formulaire reste ouvert avec les saisies conservées. Un problème d’ouverture du stockage présente une action de nouvelle tentative, sans remplacer les données par un stockage temporaire.
+## Development
 
-- `Models.swift` : plantes et arrosages, avec relation inverse et suppression en cascade.
-- `WateringSchedule.swift` : calculs calendaires indépendants de l’interface et du stockage.
-- `PlantStore.swift` : validation, sauvegarde, arrosage et suppression.
-- `Views/` : liste, fiche, formulaire et calendrier mensuel, avec surfaces adaptées aux modes clair et sombre, Dynamic Type et libellés VoiceOver.
+Run **⌘U** in Xcode to run the tests. See the [development guide](docs/DEVELOPMENT.md) for architecture, translation guidelines, command-line builds, and test coverage, and the [validation records](docs/VALIDATION.md) for past checks and their environments.
 
-La grille à sept colonnes limite l’agrandissement de ses chiffres au premier niveau d’accessibilité pour garder les dates distinctes. L’agenda et les autres textes prennent en charge les tailles maximales. Les arguments de lancement destinés aux tests de présentation ne sont actifs qu’en configuration Debug.
+User-facing changes are tracked in the [changelog](CHANGELOG.md). Day-to-day implementation details belong in commits and pull requests.
 
-Cette version n’inclut pas les notifications, photos, identification botanique, comptes ou publication sur l’App Store.
+## License
 
-## Vérifications
-
-Exécuter **⌘U** dans Xcode. Le schéma comprend les tests de planning, de persistance et les parcours d’interface. Les tests d’interface ajoutent une plante portant un nom unique, puis la suppriment ; les autres plantes ne sont pas modifiées. Les captures clair/sombre sont attachées au rapport de tests Xcode.
-
-En ligne de commande, depuis la racine du dépôt :
-
-```sh
-xcrun simctl list devices available
-xcodebuild -project Sprout.xcodeproj -scheme Sprout \
-  -destination 'platform=iOS Simulator,name=iPhone 17' \
-  -derivedDataPath /tmp/sprout-build \
-  -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO test
-```
-
-Adapter le nom du simulateur à un appareil installé. Pour compiler uniquement :
-
-```sh
-xcodebuild -project Sprout.xcodeproj -scheme Sprout \
-  -destination 'generic/platform=iOS Simulator' \
-  -derivedDataPath /tmp/sprout-build CODE_SIGNING_ALLOWED=NO build
-```
-
-Les tests couvrent notamment les arrosages anticipés/tardifs, les doublons, les changements de fréquence, les frontières de mois et d’année, le 29 février, les passages à l’heure d’été/hiver, les projections, la persistance sur disque, les suppressions en cascade et le retour arrière après une erreur de sauvegarde. L’annulation est vérifiée avec et sans arrosages antérieurs, après réouverture du stockage et en cas d’échec de sauvegarde. Les tests d’interface vérifient l’ajout, l’arrosage, le décochage, la modification, le redémarrage, le calendrier et la suppression.
-
-Vérifié le 1er octobre 2026 avec Xcode 27 : les 29 tests (26 de logique/persistance et 3 d’interface) passent sur iPhone SE (3e génération), iOS 18.2. Les parcours d’interface passent aussi sur iPhone 17, iOS 26.2. Un contrôle complémentaire sur l’iPhone SE avec la taille de texte système maximale passe, avec inspection des captures clair/sombre et du texte agrandi. Les compilations Debug et Release pour simulateur réussissent. Le runtime iOS 17 n’étant pas installé, cette version minimale n’a pas été exécutée ici.
-
-Le 2 octobre 2026, les 32 tests (29 de logique/persistance et 3 d’interface) passent sur iPhone SE, iOS 18.2, après ajout du décochage d’arrosage. Le parcours d’interface vérifie aussi le retour au statut prévu dans le calendrier, la conservation de l’annulation après redémarrage et la possibilité de cocher à nouveau.
+Sprout is licensed under the [Apache License 2.0](LICENSE).

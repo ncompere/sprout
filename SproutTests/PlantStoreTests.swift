@@ -5,7 +5,7 @@ import SwiftData
 final class PlantStoreTests: XCTestCase {
     @MainActor
     private func container(inMemory: Bool = true, url: URL? = nil) throws -> ModelContainer {
-        let schema = Schema([Plant.self, Watering.self])
+        let schema = Schema([Plant.self, Watering.self, Room.self])
         let config: ModelConfiguration
         if let url { config = ModelConfiguration(schema: schema, url: url, cloudKitDatabase: .none) }
         else { config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: inMemory, cloudKitDatabase: .none) }

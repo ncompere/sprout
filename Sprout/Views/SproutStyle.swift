@@ -8,6 +8,31 @@ enum SproutStyle {
     static let warning = Color("WarningColor")
 }
 
+/// A checkbox appearance with the accessibility behavior of a native toggle.
+struct CheckboxToggleStyle: ToggleStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        Button {
+            configuration.isOn.toggle()
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: configuration.isOn ? "checkmark.square.fill" : "square")
+                    .font(.title2)
+                    .foregroundStyle(configuration.isOn ? SproutStyle.green : .secondary)
+                    .accessibilityHidden(true)
+                configuration.label
+                    .foregroundStyle(.primary)
+            }
+            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityRepresentation {
+            Toggle(isOn: configuration.$isOn) { configuration.label }
+                .toggleStyle(.switch)
+        }
+    }
+}
+
 struct PlantSymbol: View {
     var body: some View {
         Image(systemName: "leaf.fill")
@@ -20,34 +45,40 @@ struct PlantSymbol: View {
 }
 
 struct DueLabel: View {
+    @Environment(\.locale) private var locale
     let plant: Plant
     let today: Date
 
     var body: some View {
         let due = plant.schedule.nextDueDate()
         if plant.schedule.isOverdue(on: today) {
-            Label("En retard · \(due.formatted(.dateTime.day().month(.abbreviated).locale(Locale(identifier: "fr_FR"))))", systemImage: "exclamationmark.circle")
+            Label("En retard · \(due.formatted(CalendarPresentation.dateStyle(locale: locale).day().month(.abbreviated)))", systemImage: "exclamationmark.circle")
                 .foregroundStyle(SproutStyle.warning)
         } else if WateringSchedule.calendar.isDate(due, inSameDayAs: today) {
             Label("À arroser aujourd’hui", systemImage: "drop.fill")
                 .foregroundStyle(SproutStyle.green)
         } else {
-            Label("Le \(due.formatted(.dateTime.day().month(.abbreviated).year().locale(Locale(identifier: "fr_FR"))))", systemImage: "drop")
+            Label("Le \(due.formatted(CalendarPresentation.dateStyle(locale: locale).day().month(.abbreviated).year()))", systemImage: "drop")
                 .foregroundStyle(.secondary)
         }
     }
 }
 
 struct PlantRow: View {
+    @Environment(\.locale) private var locale
     let plant: Plant
     let today: Date
+    var showsRoom = false
 
     var body: some View {
         HStack(spacing: 14) {
             PlantSymbol()
             VStack(alignment: .leading, spacing: 6) {
                 Text(plant.name).font(.headline).foregroundStyle(.primary)
-                Text(plant.intervalDays == 1 ? "Chaque jour" : "Tous les \(plant.intervalDays) jours")
+                if showsRoom {
+                    Text(plant.roomName).font(.subheadline).foregroundStyle(.secondary)
+                }
+                Text(LocalizedCopy.wateringInterval(plant.intervalDays, locale: locale))
                     .font(.subheadline).foregroundStyle(.secondary)
                 DueLabel(plant: plant, today: today).font(.subheadline)
             }
@@ -66,7 +97,7 @@ struct SaveErrorAlert: ViewModifier {
         )) {
             Button("OK", role: .cancel) { message = nil }
         } message: {
-            Text(message ?? "Vos modifications n’ont pas été enregistrées. Réessayez.")
+            Text(message ?? String(localized: "Vos modifications n’ont pas été enregistrées. Réessayez."))
         }
     }
 }

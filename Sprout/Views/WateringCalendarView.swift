@@ -2,13 +2,14 @@ import SwiftUI
 import SwiftData
 
 struct WateringCalendarView: View {
+    @Environment(\.locale) private var locale
+    @Environment(\.calendar) private var calendar
     @Environment(\.colorScheme) private var colorScheme
     @Query private var plants: [Plant]
     @State private var visibleMonth = Date.now
     @State private var selectedDate = Date.now
     @State private var showingEditor = false
     let today: Date
-    private var calendar: Calendar { WateringSchedule.calendar }
 
     private struct Entry: Identifiable {
         enum Kind { case planned, overdue, watered }
@@ -76,7 +77,7 @@ struct WateringCalendarView: View {
                         }
                     }
                     VStack(alignment: .leading, spacing: 12) {
-                        Text(selectedDate.formatted(.dateTime.weekday(.wide).day().month(.wide).year().locale(Locale(identifier: "fr_FR"))))
+                        Text(selectedDate.formatted(CalendarPresentation.dateStyle(locale: locale).weekday(.wide).day().month(.wide).year()))
                             .font(.headline).foregroundStyle(.secondary)
                         VStack(spacing: 0) {
                             if dayEntries.isEmpty {
@@ -147,7 +148,7 @@ struct WateringCalendarView: View {
                     .frame(minWidth: 44, minHeight: 44)
                     .accessibilityIdentifier("calendar.previous")
                 Spacer(minLength: 0)
-                Text(visibleMonth.formatted(.dateTime.month(.wide).year().locale(Locale(identifier: "fr_FR"))).capitalized)
+                Text(visibleMonth.formatted(CalendarPresentation.dateStyle(locale: locale).month(.wide).year()).capitalized(with: locale))
                     .font(.headline)
                     .multilineTextAlignment(.center)
                     .accessibilityIdentifier("calendar.month")
@@ -158,11 +159,11 @@ struct WateringCalendarView: View {
                     .accessibilityIdentifier("calendar.next")
             }
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 1), count: 7), spacing: 6) {
-                ForEach(Array(["L", "M", "M", "J", "V", "S", "D"].enumerated()), id: \.offset) { _, label in
+                ForEach(Array(CalendarPresentation.weekdaySymbols(calendar: calendar).enumerated()), id: \.offset) { _, label in
                     Text(label).font(.caption.weight(.semibold)).foregroundStyle(.secondary)
                         .accessibilityHidden(true)
                 }
-                let days = WateringSchedule.monthDays(containing: visibleMonth)
+                let days = WateringSchedule.monthDays(containing: visibleMonth, calendar: calendar)
                 ForEach(days.indices, id: \.self) { index in
                     if let day = days[index] {
                         dayButton(day, entries: entries[day] ?? [])
@@ -199,7 +200,7 @@ struct WateringCalendarView: View {
             selectedDate = day
         } label: {
             VStack(spacing: 5) {
-                Text("\(calendar.component(.day, from: day))")
+                Text(verbatim: String(calendar.component(.day, from: day)))
                     .font(.callout.weight(selected || isToday ? .bold : .regular))
                     .minimumScaleFactor(0.7)
                     .lineLimit(1)
@@ -223,8 +224,9 @@ struct WateringCalendarView: View {
             }
             .contentShape(Rectangle())
         }
-        .accessibilityLabel(day.formatted(.dateTime.weekday(.wide).day().month(.wide).year().locale(Locale(identifier: "fr_FR"))))
-        .accessibilityValue("\(isToday ? "Aujourd’hui. " : "")\(planned) arrosage(s) \(overdue ? "en retard" : "prévu(s)"), \(watered) effectué(s)")
+        .accessibilityLabel(day.formatted(CalendarPresentation.dateStyle(locale: locale).weekday(.wide).day().month(.wide).year()))
+        .accessibilityValue(LocalizedCopy.calendarSummary(planned: planned, watered: watered,
+                                                        overdue: overdue, isToday: isToday, locale: locale))
         .accessibilityAddTraits(selected ? .isSelected : [])
         .accessibilityIdentifier("calendar.day.\(calendar.component(.day, from: day))")
     }
