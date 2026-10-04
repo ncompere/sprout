@@ -13,6 +13,7 @@ struct PlantEditorView: View {
     @State private var errorMessage: String?
     @State private var roomID: UUID?
     @State private var showingRoomCreator = false
+    @StateObject private var photoDraft: PlantPhotoDraft
     @FocusState private var focusedField: Field?
     private enum Field { case name, interval }
 
@@ -22,6 +23,7 @@ struct PlantEditorView: View {
         _interval = State(initialValue: String(plant?.intervalDays ?? 7))
         _firstDueDate = State(initialValue: plant?.firstDueDate ?? .now)
         _roomID = State(initialValue: plant?.room?.id)
+        _photoDraft = StateObject(wrappedValue: PlantPhotoDraft(photoData: plant?.photoData))
     }
 
     private var validInterval: Int? {
@@ -40,6 +42,7 @@ struct PlantEditorView: View {
                         .focused($focusedField, equals: .name)
                         .accessibilityIdentifier("editor.name")
                 }
+                PlantPhotoEditor(draft: photoDraft) { focusedField = nil }
                 Section("Emplacement") {
                     if dynamicTypeSize.isAccessibilitySize {
                         VStack(alignment: .leading, spacing: 8) {
@@ -120,11 +123,14 @@ struct PlantEditorView: View {
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Annuler") { dismiss() }.accessibilityIdentifier("editor.cancel")
+                    Button("Annuler") {
+                        photoDraft.cancelLoading()
+                        dismiss()
+                    }.accessibilityIdentifier("editor.cancel")
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Enregistrer", action: save)
-                        .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || validInterval == nil)
+                        .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || validInterval == nil || photoDraft.isLoading)
                         .accessibilityIdentifier("editor.save")
                 }
                 ToolbarItemGroup(placement: .keyboard) {
@@ -136,6 +142,7 @@ struct PlantEditorView: View {
             .sheet(isPresented: $showingRoomCreator) {
                 RoomEditorView { roomID = $0.id }
             }
+            .onDisappear { photoDraft.cancelLoading() }
         }
     }
 
@@ -148,11 +155,12 @@ struct PlantEditorView: View {
     }
 
     private func save() {
-        guard let days = validInterval else { return }
+        guard let days = validInterval, !photoDraft.isLoading else { return }
         do {
             try PlantStore(context: context).savePlant(plant, name: name, intervalDays: days,
                                                      firstDueDate: firstDueDate,
-                                                     room: rooms.first { $0.id == roomID })
+                                                     room: rooms.first { $0.id == roomID },
+                                                     photoData: photoDraft.photoData)
             dismiss()
         } catch {
             errorMessage = String(localized: "Vos modifications n’ont pas été enregistrées. Vos saisies sont conservées ; réessayez.")

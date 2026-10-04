@@ -23,3 +23,17 @@ On October 3, 2026, organization by room is added. All 35 logic/persistence test
 ## October 3, 2026 — Localization
 
 On October 3, 2026, English/French localization is verified with Xcode 27: all 41 logic, persistence, and localization tests and 10 UI flows pass on iPhone SE (3rd generation), iOS 18.2. An eleventh flow on iPhone 17, iOS 26.0, checks the `fr_FR` and `en_US` configurations, English with a French region, calendar weekday alignment, and translated validation errors. The flows also cover restarting in another language without losing the plant or its watering. Light, dark, and largest-text screenshots have been inspected; form titles were adjusted, and both largest-text flows were rerun successfully. Debug and Release builds succeed. The iOS 17 runtime remains unavailable for running the minimum supported version.
+
+## October 4, 2026 — Plant photos
+
+With Xcode 27, all 50 logic, persistence, and localization tests pass on iPhone 16, iOS 18.0. Coverage includes JPEG resizing and orientation, metadata removal, cancelled and failed imports, replacement and removal, rollback, external photo storage, and migration from the schema with rooms but no photos. Debug and Release simulator builds succeed.
+
+All 14 UI flows have successful runs across iPhone 16 and iPhone SE (3rd generation), iOS 18.0. The full iPhone 16 run passed 10 flows; four failed while locating offscreen controls or rows among accumulated test data. After adjusting the scroll helper to fully reveal controls, the French largest-text form flow passed on iPhone SE. The remaining three flows (French largest-text photos and English/French room lifecycles) also passed there in a targeted rerun. This was not a single clean full-suite run.
+
+Photo flows verify choosing, replacing, removing, cancelling changes, and persistence after restarting while retaining watering history. French, English dark-mode, and largest-text photo screenshots were inspected. Camera capture and permission refusal still require validation on a physical device; the iOS 17 runtime was not available.
+
+## October 4, 2026 — Stable watering card
+
+With Xcode 27 on iPhone SE (3rd generation), iOS 18.0, all 50 logic, persistence, and localization tests pass. Eight targeted UI flows have successful runs: the plant lifecycle, dark appearance, largest text size, and overdue watering, each in French and English. They verify that the date, status, and checkbox share one native list cell when recording or undoing a watering, that the date updates and restores, and that the checkbox retains its accessible state and minimum 44-point touch target.
+
+Light, dark, and largest-text screenshots before and after watering, plus undo screenshots in dark mode and at the largest text size, were inspected. The card retains one continuous surface. The new English overdue test initially selected a day before the native month transition completed; after adding a wait for that transition and checking the selected day, both overdue flows pass in a targeted rerun.

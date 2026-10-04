@@ -13,9 +13,14 @@ final class SproutUITests: XCTestCase {
             "Arrosage non effectué": "Not watered",
             "Arrosage prévu": "Watering scheduled",
             "Arrosée aujourd’hui": "Watered today",
+            "À arroser aujourd’hui": "Water today",
             "Aucun arrosage prévu ce jour": "No watering scheduled for this day",
             "Calendrier": "Calendar",
+            "Choisir une photo": "Choose a photo",
+            "Supprimer la photo": "Remove photo",
+            "Terminé": "Done",
             "Mes plantes": "My plants",
+            "En retard": "Overdue",
             "Nouvelle pièce": "New room",
             "OK": "OK",
             "Par arrosage": "By watering",
@@ -59,11 +64,16 @@ final class SproutUITests: XCTestCase {
 
     @discardableResult
     private func assertWatering(_ watered: Bool, app: XCUIApplication,
+                                status: String? = nil,
                                 file: StaticString = #filePath, line: UInt = #line) -> XCUIElement {
         let checkbox = app.switches["plant.water"]
         // List creates offscreen rows lazily at the largest Dynamic Type sizes.
-        for _ in 0..<3 {
-            if checkbox.exists && checkbox.isHittable { break }
+        for _ in 0..<6 {
+            if checkbox.exists && checkbox.isHittable {
+                let visibleBottom = app.tabBars.firstMatch.exists
+                    ? app.tabBars.firstMatch.frame.minY : app.frame.maxY
+                if checkbox.frame.maxY <= visibleBottom { break }
+            }
             app.collectionViews.firstMatch.swipeUp()
         }
         XCTAssertTrue(checkbox.waitForExistence(timeout: 5), file: file, line: line)
@@ -76,6 +86,16 @@ final class SproutUITests: XCTestCase {
         XCTAssertEqual(checkbox.label, copy("Arrosée aujourd’hui"), file: file, line: line)
         XCTAssertTrue(checkbox.isEnabled, file: file, line: line)
         XCTAssertGreaterThanOrEqual(checkbox.frame.height, 44, file: file, line: line)
+        // All three elements must remain in one native list cell when watering changes.
+        let cards = app.cells.containing(.staticText, identifier: "plant.nextDue")
+        XCTAssertEqual(cards.count, 1, file: file, line: line)
+        let card = cards.firstMatch
+        XCTAssertTrue(card.switches["plant.water"].exists, file: file, line: line)
+        let wateringStatus = card.staticTexts["plant.wateringStatus"]
+        XCTAssertTrue(wateringStatus.exists, file: file, line: line)
+        if let expectedStatus = status ?? (watered ? "Arrosage prévu" : nil) {
+            XCTAssertEqual(wateringStatus.label, copy(expectedStatus), file: file, line: line)
+        }
         return checkbox
     }
 
@@ -90,13 +110,17 @@ final class SproutUITests: XCTestCase {
         }
         reveal(app.staticTexts[name], app: app)
         app.staticTexts[name].tap()
-        assertWatering(false, app: app)
+        assertWatering(false, app: app, status: "À arroser aujourd’hui")
+        let initialDue = app.staticTexts["plant.nextDue"].label
         capture("Case vide — \(name)", app: app)
         assertWatering(false, app: app).tap()
         assertWatering(true, app: app)
+        XCTAssertNotEqual(app.staticTexts["plant.nextDue"].label, initialDue)
         capture("Case cochée — \(name)", app: app)
         assertWatering(true, app: app).tap()
-        assertWatering(false, app: app)
+        assertWatering(false, app: app, status: "À arroser aujourd’hui")
+        XCTAssertEqual(app.staticTexts["plant.nextDue"].label, initialDue)
+        capture("Case décochée — \(name)", app: app)
         let delete = app.buttons["plant.delete"]
         if !delete.isHittable { app.swipeUp() }
         delete.tap()
@@ -109,8 +133,13 @@ final class SproutUITests: XCTestCase {
                         file: StaticString = #filePath, line: UInt = #line) {
         // Short drags avoid skipping a section header between large Dynamic Type rows.
         for _ in 0..<16 {
-            if element.exists && element.isHittable { break }
             let list = app.collectionViews.firstMatch
+            if element.exists && element.isHittable {
+                let frame = element.frame
+                let visibleBottom = min(list.frame.maxY, app.frame.maxY - 34)
+                // A partially visible button can report hittable while its tap lands below the sheet.
+                if frame.maxY <= visibleBottom { break }
+            }
             list.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.7))
                 .press(forDuration: 0.1, thenDragTo:
                     list.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.4)))
@@ -301,7 +330,7 @@ final class SproutUITests: XCTestCase {
         assertWatering(true, app: app)
         app.buttons["plant.edit"].tap()
         let interval = app.textFields["editor.interval"]
-        XCTAssertTrue(interval.waitForExistence(timeout: 5))
+        reveal(interval, app: app)
         interval.tap()
         interval.typeText(XCUIKeyboardKey.delete.rawValue + "0")
         XCTAssertFalse(app.buttons["editor.save"].isEnabled)
@@ -346,6 +375,13 @@ final class SproutUITests: XCTestCase {
         XCTAssertTrue(app.buttons["calendar.today"].waitForExistence(timeout: 5))
         capture("Calendrier — sombre", app: app)
         app.buttons["calendar.next"].tap()
+        // Existing plants can have a watering on the first day of the next month.
+        let emptySummary = language == "fr" ? "0 arrosage prévu. 0 arrosage effectué."
+            : "0 waterings scheduled. 0 waterings completed."
+        let emptyDay = app.buttons.matching(NSPredicate(
+            format: "identifier BEGINSWITH 'calendar.day.' AND value == %@", emptySummary)).firstMatch
+        XCTAssertTrue(emptyDay.waitForExistence(timeout: 5))
+        emptyDay.tap()
         XCTAssertTrue(app.staticTexts[copy("Aucun arrosage prévu ce jour")].exists)
         app.tabBars.buttons[copy("Mes plantes")].tap()
         checkRoomPresentation(app: app, suffix: "sombre \(UUID().uuidString.prefix(6))")
@@ -375,10 +411,169 @@ final class SproutUITests: XCTestCase {
         checkRoomsLifecycleAndRememberedGrouping()
     }
 
+    // Seed the simulator photo library with `xcrun simctl addmedia <device> <image>` before running these flows.
+    private func selectLibraryPhoto(app: XCUIApplication) throws {
+        let choose = app.buttons["editor.photo.choose"]
+        reveal(choose, app: app)
+        XCTAssertEqual(choose.label, copy("Choisir une photo"))
+        choose.tap()
+        XCTAssertTrue(app.navigationBars["Photos"].waitForExistence(timeout: 5))
+        // At accessibility sizes, the system's information banner can fill the first screen.
+        let closeInfo = app.buttons.matching(NSPredicate(format: "label == 'Fermer' OR label == 'Close'")).firstMatch
+        if closeInfo.exists && closeInfo.isHittable { closeInfo.tap() }
+        let photo = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH[c] 'Photo,'")).firstMatch
+        for _ in 0..<5 {
+            if photo.exists && photo.isHittable { break }
+            let scrollViews = app.scrollViews
+            guard scrollViews.count > 0 else { break }
+            scrollViews.element(boundBy: scrollViews.count - 1).swipeUp()
+        }
+        guard photo.waitForExistence(timeout: 10) else {
+            print(app.debugDescription)
+            XCTFail("The native picker must contain a photo. Seed the simulator library before running these flows.")
+            return
+        }
+        photo.tap()
+        XCTAssertTrue(app.images["editor.photo.preview"].waitForExistence(timeout: 15))
+    }
+
+    private func checkPhotoLifecycle(style: String = "Light", largeText: Bool = false) throws {
+        let app = launch(style: style, largeText: largeText)
+        let name = "Photo test \(UUID().uuidString.prefix(6))"
+        XCTAssertTrue(app.buttons["plants.add"].waitForExistence(timeout: 10))
+        app.buttons["plants.add"].tap()
+        app.textFields["editor.name"].tap()
+        app.textFields["editor.name"].typeText(name)
+        if app.keyboards.firstMatch.exists { app.buttons[copy("Terminé")].tap() }
+        try selectLibraryPhoto(app: app)
+        capture("Photo — formulaire", app: app)
+        app.buttons["editor.save"].tap()
+        reveal(app.staticTexts[name], app: app)
+        capture("Photo — liste", app: app)
+        app.staticTexts[name].tap()
+        XCTAssertTrue(app.images["plant.photo"].waitForExistence(timeout: 5))
+        XCTAssertGreaterThan(app.images["plant.photo"].frame.height, 48)
+        capture("Photo — fiche", app: app)
+        assertWatering(false, app: app).tap()
+        app.buttons["plant.edit"].tap()
+        let remove = app.buttons["editor.photo.remove"]
+        reveal(remove, app: app)
+        XCTAssertEqual(remove.label, copy("Supprimer la photo"))
+        remove.tap()
+        XCTAssertTrue(app.images["editor.photo.preview"].waitForNonExistence(timeout: 5))
+        app.buttons["editor.cancel"].tap()
+        for _ in 0..<8 {
+            if app.images["plant.photo"].exists && app.images["plant.photo"].isHittable { break }
+            app.collectionViews.firstMatch.swipeDown()
+        }
+        reveal(app.images["plant.photo"], app: app)
+        app.buttons["plant.edit"].tap()
+        try selectLibraryPhoto(app: app)
+        app.buttons["editor.save"].tap()
+        app.terminate()
+        app.launch()
+        reveal(app.staticTexts[name], app: app)
+        app.staticTexts[name].tap()
+        XCTAssertTrue(app.images["plant.photo"].waitForExistence(timeout: 5))
+        assertWatering(true, app: app)
+        app.buttons["plant.edit"].tap()
+        reveal(app.buttons["editor.photo.remove"], app: app)
+        app.buttons["editor.photo.remove"].tap()
+        app.buttons["editor.save"].tap()
+        XCTAssertTrue(app.images["plant.photo"].waitForNonExistence(timeout: 5))
+        app.terminate()
+        app.launch()
+        reveal(app.staticTexts[name], app: app)
+        app.staticTexts[name].tap()
+        XCTAssertFalse(app.images["plant.photo"].exists)
+        assertWatering(true, app: app)
+        reveal(app.buttons["plant.delete"], app: app)
+        app.buttons["plant.delete"].tap()
+        app.buttons["plant.confirmDelete"].tap()
+        XCTAssertTrue(app.buttons["plants.add"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.staticTexts[name].exists)
+    }
+
+    func testPlantPhotoLifecycleFrench() throws {
+        language = "fr"
+        region = "fr_FR"
+        try checkPhotoLifecycle()
+    }
+
+    func testPlantPhotoLifecycleEnglishDark() throws {
+        language = "en"
+        region = "en_US"
+        try checkPhotoLifecycle(style: "Dark")
+    }
+
+    func testPlantPhotoLifecycleFrenchLargestText() throws {
+        language = "fr"
+        region = "fr_FR"
+        try checkPhotoLifecycle(largeText: true)
+    }
+
     func testPlantLifecycleAndCalendarFrench() {
         language = "fr"
         region = "fr_FR"
         checkPlantLifecycleAndCalendar()
+    }
+
+    private func checkOverdueWateringCard() {
+        let app = launch()
+        let name = "Arrosage en retard \(UUID().uuidString.prefix(6))"
+        app.buttons["plants.add"].tap()
+        app.textFields["editor.name"].tap()
+        app.textFields["editor.name"].typeText(name)
+        if app.keyboards.firstMatch.exists { app.buttons[copy("Terminé")].tap() }
+        let date = app.datePickers["editor.firstDate"]
+        reveal(date, app: app)
+        date.tap()
+        let calendarPicker = app.datePickers.containing(.button, identifier: "DatePicker.PreviousMonth").firstMatch
+        let month = calendarPicker.buttons["DatePicker.Show"]
+        let initialMonth = month.value as? String ?? ""
+        calendarPicker.buttons["DatePicker.PreviousMonth"].tap()
+        let monthChanged = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "value != %@", initialMonth), object: month
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [monthChanged], timeout: 5), .completed)
+        let firstOfMonth = calendarPicker.buttons.containing(.staticText, identifier: "1").firstMatch
+        XCTAssertTrue(firstOfMonth.waitForExistence(timeout: 5))
+        firstOfMonth.tap()
+        XCTAssertTrue(firstOfMonth.isSelected)
+        // The native compact picker can remain open after selecting its date.
+        if app.buttons["DatePicker.PreviousMonth"].exists {
+            app.navigationBars.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        }
+        app.buttons["editor.save"].tap()
+        openPlant(name, app: app)
+        assertWatering(false, app: app, status: "En retard")
+        let initialDue = app.staticTexts["plant.nextDue"].label
+        capture("Carte en retard", app: app)
+        assertWatering(false, app: app).tap()
+        assertWatering(true, app: app)
+        XCTAssertNotEqual(app.staticTexts["plant.nextDue"].label, initialDue)
+        capture("Carte en retard — arrosage enregistré", app: app)
+        assertWatering(true, app: app).tap()
+        assertWatering(false, app: app, status: "En retard")
+        XCTAssertEqual(app.staticTexts["plant.nextDue"].label, initialDue)
+        capture("Carte en retard — arrosage annulé", app: app)
+        reveal(app.buttons["plant.delete"], app: app)
+        app.buttons["plant.delete"].tap()
+        app.buttons["plant.confirmDelete"].tap()
+        XCTAssertTrue(app.buttons["plants.add"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.staticTexts[name].exists)
+    }
+
+    func testWateringCardOverdueFrench() {
+        language = "fr"
+        region = "fr_FR"
+        checkOverdueWateringCard()
+    }
+
+    func testWateringCardOverdueEnglish() {
+        language = "en"
+        region = "en_US"
+        checkOverdueWateringCard()
     }
 
     func testDarkCalendarAndEmptyStateFrench() {

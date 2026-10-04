@@ -91,7 +91,7 @@ struct WateringCalendarView: View {
                                         PlantDetailView(plant: entry.plant, today: today)
                                     } label: {
                                         HStack(spacing: 14) {
-                                            PlantSymbol()
+                                            PlantThumbnail(photoData: entry.plant.photoData)
                                             VStack(alignment: .leading, spacing: 6) {
                                                 Text(entry.plant.name).font(.headline)
                                                 entryLabel(entry.kind).font(.subheadline)

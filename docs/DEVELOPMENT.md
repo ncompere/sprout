@@ -9,6 +9,7 @@ Plants, their rooms, and their waterings are kept in local SwiftData storage, wi
 - `Models.swift`: plants, rooms, and waterings, with inverse relationships. Waterings are cascade-deleted with their plant; deleting a room only removes its assignments. Adding rooms uses an automatic lightweight migration: existing plants become **No room** without changing their data or history.
 - `WateringSchedule.swift`: calendar calculations independent of the interface and storage.
 - `PlantStore.swift`: validation, saving, room assignment, watering, and deletion.
+- `PlantPhoto.swift`: photo resizing/encoding and form-local drafts. Photos are optional SwiftData external-storage data, migrated automatically for existing plants. Library images are downsampled with ImageIO; camera images are normalized before JPEG encoding (1,600 pixels maximum, quality 0.8). Processing happens off the main thread; failed or obsolete imports preserve the draft. Camera permission copy is translated in `InfoPlist.xcstrings`.
 - `Views/`: list, details, plant and room forms, room management, and monthly calendar, with surfaces adapted to light and dark modes, Dynamic Type, and VoiceOver labels.
 - `Localization.swift` and `Localizable.xcstrings`: shared phrases and plurals, English/French translations, and the presentation calendar based on iOS preferences.
 
@@ -36,7 +37,15 @@ xcodebuild -project Sprout.xcodeproj -scheme Sprout \
   -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO test
 ```
 
-Adjust the simulator name to an installed device. To build only:
+Adjust the simulator name to an installed device. The photo UI flows require at least one image in the simulator photo library. With your selected simulator booted, seed it using the included fixture (replace `DEVICE-UUID` with its identifier from `simctl list`):
+
+```sh
+xcrun simctl addmedia DEVICE-UUID SproutUITests/Fixtures/plant.png
+```
+
+Photo tests cover normalization, resizing, obsolete/failed imports, saving, rollback, persistence, and migration from the schema with rooms but no photos. UI flows cover choosing/replacing/removing a photo, cancelling changes, and persistence while retaining watering history, in French, English dark mode, and the largest text size. Camera capture and permission refusal need a physical iPhone or iPad; the camera action is hidden on simulators.
+
+To build only:
 
 ```sh
 xcodebuild -project Sprout.xcodeproj -scheme Sprout \

@@ -2,6 +2,21 @@ import XCTest
 @testable import Sprout
 
 final class LocalizationTests: XCTestCase {
+    func testPhotoActionsAndCameraPermissionAreTranslated() throws {
+        for language in ["fr", "en"] {
+            let resources = try bundle(language)
+            XCTAssertEqual(resources.localizedString(forKey: "Choisir une photo", value: nil, table: nil),
+                           language == "fr" ? "Choisir une photo" : "Choose a photo")
+            XCTAssertEqual(resources.localizedString(forKey: "Prendre une photo", value: nil, table: nil),
+                           language == "fr" ? "Prendre une photo" : "Take a photo")
+            XCTAssertEqual(resources.localizedString(forKey: "Supprimer la photo", value: nil, table: nil),
+                           language == "fr" ? "Supprimer la photo" : "Remove photo")
+            XCTAssertEqual(resources.localizedString(forKey: "NSCameraUsageDescription", value: nil, table: "InfoPlist"),
+                           language == "fr" ? "Sprout utilise l’appareil photo pour ajouter une photo à votre plante."
+                               : "Sprout uses the camera to add a photo to your plant.")
+        }
+    }
+
     private func bundle(_ language: String) throws -> Bundle {
         let path = try XCTUnwrap(Bundle.main.path(forResource: language, ofType: "lproj"))
         return try XCTUnwrap(Bundle(path: path))

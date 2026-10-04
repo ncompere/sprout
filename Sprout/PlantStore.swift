@@ -38,7 +38,7 @@ struct PlantStore {
 
     @discardableResult
     func savePlant(_ plant: Plant? = nil, name: String, intervalDays: Int, firstDueDate: Date,
-                   room: Room?) throws -> Plant {
+                   room: Room?, photoData: Data?) throws -> Plant {
         try Self.validate(name: name, intervalDays: intervalDays, firstDueDate: firstDueDate)
         let name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         let date = WateringSchedule.calendar.startOfDay(for: firstDueDate)
@@ -51,10 +51,12 @@ struct PlantStore {
             let previousName = plant.name
             let previousInterval = plant.intervalDays
             let previousDate = plant.firstDueDate
+            let previousPhoto = plant.photoData
             restore = {
                 plant.name = previousName
                 plant.intervalDays = previousInterval
                 plant.firstDueDate = previousDate
+                plant.photoData = previousPhoto
                 plant.room = previousRoom
                 previousMembers.forEach { $0.0.plants = $0.1 }
             }
@@ -66,12 +68,21 @@ struct PlantStore {
             savedPlant = Plant(name: name, intervalDays: intervalDays, firstDueDate: date)
             context.insert(savedPlant)
         }
+        savedPlant.photoData = photoData
         setRoom(room, for: savedPlant)
         try commit(restoring: restore)
         return savedPlant
     }
 
-    // Existing callers editing the watering schedule retain the plant's assignment.
+    // Existing callers retain the photo unless they explicitly supply a replacement or nil.
+    @discardableResult
+    func savePlant(_ plant: Plant? = nil, name: String, intervalDays: Int, firstDueDate: Date,
+                   room: Room?) throws -> Plant {
+        try savePlant(plant, name: name, intervalDays: intervalDays, firstDueDate: firstDueDate,
+                      room: room, photoData: plant?.photoData)
+    }
+
+    // Existing callers editing the watering schedule retain the plant's assignment and photo.
     @discardableResult
     func savePlant(_ plant: Plant? = nil, name: String, intervalDays: Int, firstDueDate: Date) throws -> Plant {
         try savePlant(plant, name: name, intervalDays: intervalDays, firstDueDate: firstDueDate, room: plant?.room)
@@ -126,10 +137,9 @@ struct PlantStore {
         let previousWaterings = plant.waterings
         let watering = Watering(date: date, plant: plant)
         context.insert(watering)
-        // Maintain both sides immediately so all views refresh before the next fetch.
-        if !plant.waterings.contains(where: { $0.id == watering.id }) {
-            plant.waterings.append(watering)
-        }
+        // Assign explicitly even if SwiftData already updated the inverse: inverse updates
+        // alone do not consistently notify views observing the plant on older iOS versions.
+        plant.waterings = previousWaterings + [watering]
         try commit { plant.waterings = previousWaterings }
     }
 
@@ -145,8 +155,20 @@ struct PlantStore {
     }
 
     func delete(_ plant: Plant) throws {
+        let previousPhoto = plant.photoData
+        let previousRoom = plant.room
+        let previousMembers = previousRoom?.plants ?? []
+        let previousWaterings = plant.waterings
         context.delete(plant)
-        try commit()
+        try commit {
+            plant.photoData = previousPhoto
+            plant.room = previousRoom
+            previousRoom?.plants = previousMembers
+            for watering in previousWaterings where watering.plant?.id != plant.id {
+                watering.plant = plant
+            }
+            plant.waterings = previousWaterings
+        }
     }
 
     private func commit(restoring restore: () -> Void = { }) throws {

@@ -1,82 +1,552 @@
 // !$*UTF8*$!
 {
 	archiveVersion = 1;
-	classes = {};
+	classes = {
+	};
 	objectVersion = 56;
 	objects = {
-		602CD52D35F84AA9A2AC1205 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SproutTests/LocalizationTests.swift"; sourceTree = SOURCE_ROOT; };
-		602CD52D35F84AA9A2AC1206 = { isa = PBXBuildFile; fileRef = 602CD52D35F84AA9A2AC1205; };
-		602CD52D35F84AA9A2AC1201 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sprout/Localization.swift"; sourceTree = SOURCE_ROOT; };
-		602CD52D35F84AA9A2AC1202 = { isa = PBXBuildFile; fileRef = 602CD52D35F84AA9A2AC1201; };
-		602CD52D35F84AA9A2AC1203 = { isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = "Sprout/Localizable.xcstrings"; sourceTree = SOURCE_ROOT; };
-		602CD52D35F84AA9A2AC1204 = { isa = PBXBuildFile; fileRef = 602CD52D35F84AA9A2AC1203; };
-		602CD52D35F84AA9A2AC1193 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SproutTests/RoomStoreTests.swift"; sourceTree = SOURCE_ROOT; };
-		602CD52D35F84AA9A2AC1194 = { isa = PBXBuildFile; fileRef = 602CD52D35F84AA9A2AC1193; };
-		602CD52D35F84AA9A2AC1191 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sprout/Views/RoomViews.swift"; sourceTree = SOURCE_ROOT; };
-		602CD52D35F84AA9A2AC1192 = { isa = PBXBuildFile; fileRef = 602CD52D35F84AA9A2AC1191; };
-		3B335F8997D46D3A6B63FD11 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sprout/Models.swift"; sourceTree = SOURCE_ROOT; };
-		51F46F24C1014CCB2C8CA8A3 = { isa = PBXBuildFile; fileRef = 3B335F8997D46D3A6B63FD11; };
-		B5B37AD269C5BBB48EE80AF6 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sprout/PlantStore.swift"; sourceTree = SOURCE_ROOT; };
-		B7BB68A07BF70327C5828F88 = { isa = PBXBuildFile; fileRef = B5B37AD269C5BBB48EE80AF6; };
-		C3DB9BE714367A7EB4BD58AC = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sprout/SproutApp.swift"; sourceTree = SOURCE_ROOT; };
-		DFCCCF5258F6116ADE5C59BA = { isa = PBXBuildFile; fileRef = C3DB9BE714367A7EB4BD58AC; };
-		232A3A0D9E8A2E865DDF0EE6 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sprout/Views/PlantDetailView.swift"; sourceTree = SOURCE_ROOT; };
-		2CBA229177189CB1CCDE1CBA = { isa = PBXBuildFile; fileRef = 232A3A0D9E8A2E865DDF0EE6; };
-		31CCBCD4327BAC1CD85D715D = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sprout/Views/PlantEditorView.swift"; sourceTree = SOURCE_ROOT; };
-		87AA860B94AEA89EE8BDE9FD = { isa = PBXBuildFile; fileRef = 31CCBCD4327BAC1CD85D715D; };
-		FF7BB0A6E2A861F5EC53CA5A = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sprout/Views/PlantListView.swift"; sourceTree = SOURCE_ROOT; };
-		299A3858320494B047A312EC = { isa = PBXBuildFile; fileRef = FF7BB0A6E2A861F5EC53CA5A; };
-		6FE1E5EA7253DF83ECF2D512 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sprout/Views/SproutStyle.swift"; sourceTree = SOURCE_ROOT; };
-		320453F85315F89D7F3A7974 = { isa = PBXBuildFile; fileRef = 6FE1E5EA7253DF83ECF2D512; };
-		548B8A01CDBF5DE2E8839A31 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sprout/Views/WateringCalendarView.swift"; sourceTree = SOURCE_ROOT; };
-		1C8C531DE641454C6C2AC089 = { isa = PBXBuildFile; fileRef = 548B8A01CDBF5DE2E8839A31; };
-		C25FBC87D70AF84D03B1DC2C = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sprout/WateringSchedule.swift"; sourceTree = SOURCE_ROOT; };
-		A9CEB232096A8C422F476BEA = { isa = PBXBuildFile; fileRef = C25FBC87D70AF84D03B1DC2C; };
-		E74CD8BBD2DDB178934BEFA1 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SproutTests/WateringScheduleTests.swift"; sourceTree = SOURCE_ROOT; };
-		7FC07332D7918B4C42AB0347 = { isa = PBXBuildFile; fileRef = E74CD8BBD2DDB178934BEFA1; };
-		C98873DDF47AD38DD4147190 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SproutTests/PlantStoreTests.swift"; sourceTree = SOURCE_ROOT; };
-		824258268DC96D43867C4CFD = { isa = PBXBuildFile; fileRef = C98873DDF47AD38DD4147190; };
-		264E170CA7C68F5A835D29CD = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SproutUITests/SproutUITests.swift"; sourceTree = SOURCE_ROOT; };
-		ED981846D067763F8C1DD893 = { isa = PBXBuildFile; fileRef = 264E170CA7C68F5A835D29CD; };
-		3685E330EC5277A9DD5661C6 = { isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Sprout/Assets.xcassets; sourceTree = SOURCE_ROOT; };
-		716E9590E60B3AFA6E62BF18 = { isa = PBXBuildFile; fileRef = 3685E330EC5277A9DD5661C6; };
-		B98F8430F64D14534C71E0E4 = { isa = PBXGroup; name = Sprout; children = (602CD52D35F84AA9A2AC1201, 602CD52D35F84AA9A2AC1203, 602CD52D35F84AA9A2AC1191, 3B335F8997D46D3A6B63FD11, B5B37AD269C5BBB48EE80AF6, C3DB9BE714367A7EB4BD58AC, 232A3A0D9E8A2E865DDF0EE6, 31CCBCD4327BAC1CD85D715D, FF7BB0A6E2A861F5EC53CA5A, 6FE1E5EA7253DF83ECF2D512, 548B8A01CDBF5DE2E8839A31, C25FBC87D70AF84D03B1DC2C, 3685E330EC5277A9DD5661C6,); sourceTree = "<group>"; };
-		B9E9CC71C281D5CCB04E6AFE = { isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sprout.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C418F1199125D30D6727C08 = { isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (602CD52D35F84AA9A2AC1202, 602CD52D35F84AA9A2AC1192, 51F46F24C1014CCB2C8CA8A3, B7BB68A07BF70327C5828F88, DFCCCF5258F6116ADE5C59BA, 2CBA229177189CB1CCDE1CBA, 87AA860B94AEA89EE8BDE9FD, 299A3858320494B047A312EC, 320453F85315F89D7F3A7974, 1C8C531DE641454C6C2AC089, A9CEB232096A8C422F476BEA,); runOnlyForDeploymentPostprocessing = 0; };
-		61127480EC7532AAC96C6BB7 = { isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (602CD52D35F84AA9A2AC1204, 716E9590E60B3AFA6E62BF18,); runOnlyForDeploymentPostprocessing = 0; };
-		26721FD0E94263C0F54AD575 = { isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
-		E03F3D22E0364C0B0D35D64E = { isa = PBXNativeTarget; buildConfigurationList = E2E5BFF0E0AF7888EBB79E98; buildPhases = (4C418F1199125D30D6727C08, 26721FD0E94263C0F54AD575, 61127480EC7532AAC96C6BB7,); buildRules = (); dependencies = (); name = Sprout; productName = Sprout; productReference = B9E9CC71C281D5CCB04E6AFE; productType = "com.apple.product-type.application"; };
-		A9906DA17E1CB63FC1E19A33 = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_NAME = "$(TARGET_NAME)"; PRODUCT_BUNDLE_IDENTIFIER = com.sprout.sprout; GENERATE_INFOPLIST_FILE = YES; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; IPHONEOS_DEPLOYMENT_TARGET = 17.0; CODE_SIGN_STYLE = Automatic; ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor; INFOPLIST_KEY_CFBundleDisplayName = Sprout; INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle"; INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES; INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"; INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks"; }; name = Debug; };
-		ACF966C68C8D54A7A74E80FE = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_NAME = "$(TARGET_NAME)"; PRODUCT_BUNDLE_IDENTIFIER = com.sprout.sprout; GENERATE_INFOPLIST_FILE = YES; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; IPHONEOS_DEPLOYMENT_TARGET = 17.0; CODE_SIGN_STYLE = Automatic; ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor; INFOPLIST_KEY_CFBundleDisplayName = Sprout; INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle"; INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES; INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"; INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks"; }; name = Release; };
-		E2E5BFF0E0AF7888EBB79E98 = { isa = XCConfigurationList; buildConfigurations = (A9906DA17E1CB63FC1E19A33, ACF966C68C8D54A7A74E80FE,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-		6FC350687E8726A3EA958698 = { isa = PBXGroup; name = SproutTests; children = (602CD52D35F84AA9A2AC1205, 602CD52D35F84AA9A2AC1193, E74CD8BBD2DDB178934BEFA1, C98873DDF47AD38DD4147190,); sourceTree = "<group>"; };
-		9493420D5F00EDAC814CB356 = { isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SproutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		937668BFF157CB3C809EDE69 = { isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (602CD52D35F84AA9A2AC1206, 602CD52D35F84AA9A2AC1194, 7FC07332D7918B4C42AB0347, 824258268DC96D43867C4CFD,); runOnlyForDeploymentPostprocessing = 0; };
-		A560CB39CD302E8F568381FE = { isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
-		7F83F4E5467C94488393C605 = { isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
-		5F754D85B9653FE42DC647AD = { isa = PBXContainerItemProxy; containerPortal = 98F54143AB4E86B28C3AFEE0; proxyType = 1; remoteGlobalIDString = E03F3D22E0364C0B0D35D64E; remoteInfo = Sprout; };
-		F9B687F1F7B2A2F4DBAC125B = { isa = PBXTargetDependency; target = E03F3D22E0364C0B0D35D64E; targetProxy = 5F754D85B9653FE42DC647AD; };
-		857FB890F34C89A98D3B8B45 = { isa = PBXNativeTarget; buildConfigurationList = 724CD87793E6308C18539048; buildPhases = (937668BFF157CB3C809EDE69, 7F83F4E5467C94488393C605, A560CB39CD302E8F568381FE,); buildRules = (); dependencies = (F9B687F1F7B2A2F4DBAC125B,); name = SproutTests; productName = SproutTests; productReference = 9493420D5F00EDAC814CB356; productType = "com.apple.product-type.bundle.unit-test"; };
-		B0ABBA5ADEABD00441CA2F1C = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_NAME = "$(TARGET_NAME)"; PRODUCT_BUNDLE_IDENTIFIER = com.sprout.sprouttests; GENERATE_INFOPLIST_FILE = YES; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; IPHONEOS_DEPLOYMENT_TARGET = 17.0; CODE_SIGN_STYLE = Automatic; TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sprout.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sprout"; BUNDLE_LOADER = "$(TEST_HOST)"; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"; }; name = Debug; };
-		7F11D5A00C66AD8023D7E20B = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_NAME = "$(TARGET_NAME)"; PRODUCT_BUNDLE_IDENTIFIER = com.sprout.sprouttests; GENERATE_INFOPLIST_FILE = YES; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; IPHONEOS_DEPLOYMENT_TARGET = 17.0; CODE_SIGN_STYLE = Automatic; TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sprout.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sprout"; BUNDLE_LOADER = "$(TEST_HOST)"; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"; }; name = Release; };
-		724CD87793E6308C18539048 = { isa = XCConfigurationList; buildConfigurations = (B0ABBA5ADEABD00441CA2F1C, 7F11D5A00C66AD8023D7E20B,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-		634D9587B161E268488B3275 = { isa = PBXGroup; name = SproutUITests; children = (264E170CA7C68F5A835D29CD,); sourceTree = "<group>"; };
-		C28EC01E846C57D5A23CE0E9 = { isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SproutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0FEE37FDD2F6E7D356E3A5CA = { isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (ED981846D067763F8C1DD893,); runOnlyForDeploymentPostprocessing = 0; };
-		C3D8D4ABE279E17611F848BB = { isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
-		97A6C0D3BD2FD56898CA6D96 = { isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
-		B60FA5859BA8F9CD0AEDE1A6 = { isa = PBXContainerItemProxy; containerPortal = 98F54143AB4E86B28C3AFEE0; proxyType = 1; remoteGlobalIDString = E03F3D22E0364C0B0D35D64E; remoteInfo = Sprout; };
-		6AB496F118B8C1A84B84B8C6 = { isa = PBXTargetDependency; target = E03F3D22E0364C0B0D35D64E; targetProxy = B60FA5859BA8F9CD0AEDE1A6; };
-		A8939ED11931342DBE813DD0 = { isa = PBXNativeTarget; buildConfigurationList = 1112E29475D89AA081F0CC44; buildPhases = (0FEE37FDD2F6E7D356E3A5CA, 97A6C0D3BD2FD56898CA6D96, C3D8D4ABE279E17611F848BB,); buildRules = (); dependencies = (6AB496F118B8C1A84B84B8C6,); name = SproutUITests; productName = SproutUITests; productReference = C28EC01E846C57D5A23CE0E9; productType = "com.apple.product-type.bundle.ui-testing"; };
-		C42B3126792A061C827092CD = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_NAME = "$(TARGET_NAME)"; PRODUCT_BUNDLE_IDENTIFIER = com.sprout.sproutuitests; GENERATE_INFOPLIST_FILE = YES; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; IPHONEOS_DEPLOYMENT_TARGET = 17.0; CODE_SIGN_STYLE = Automatic; TEST_TARGET_NAME = Sprout; }; name = Debug; };
-		73882622AEF33595DA45E335 = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_NAME = "$(TARGET_NAME)"; PRODUCT_BUNDLE_IDENTIFIER = com.sprout.sproutuitests; GENERATE_INFOPLIST_FILE = YES; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; IPHONEOS_DEPLOYMENT_TARGET = 17.0; CODE_SIGN_STYLE = Automatic; TEST_TARGET_NAME = Sprout; }; name = Release; };
-		1112E29475D89AA081F0CC44 = { isa = XCConfigurationList; buildConfigurations = (C42B3126792A061C827092CD, 73882622AEF33595DA45E335,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-		FBDC4F23F93125BBEEAE800C = { isa = PBXGroup; children = (B9E9CC71C281D5CCB04E6AFE, 9493420D5F00EDAC814CB356, C28EC01E846C57D5A23CE0E9,); name = Products; sourceTree = "<group>"; };
-		B28B7AF69320201D1CF206EB = { isa = PBXGroup; children = (B98F8430F64D14534C71E0E4, 6FC350687E8726A3EA958698, 634D9587B161E268488B3275, FBDC4F23F93125BBEEAE800C,); sourceTree = "<group>"; };
-		AA60E62D3E7BAEF305ADABEA = { isa = XCBuildConfiguration; buildSettings = { SDKROOT = iphoneos; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; GCC_C_LANGUAGE_STANDARD = gnu17; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_TESTABILITY = YES; GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1 $(inherited)"; SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)"; LOCALIZATION_PREFERS_STRING_CATALOGS = YES; SWIFT_EMIT_LOC_STRINGS = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; }; name = Debug; };
-		3D553B551D2688E2E7A15153 = { isa = XCBuildConfiguration; buildSettings = { SDKROOT = iphoneos; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; GCC_C_LANGUAGE_STANDARD = gnu17; SWIFT_OPTIMIZATION_LEVEL = "-O"; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; ENABLE_TESTABILITY = NO; GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)"; SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)"; LOCALIZATION_PREFERS_STRING_CATALOGS = YES; SWIFT_EMIT_LOC_STRINGS = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; }; name = Release; };
-		640DC9EFD529235A8D9E2727 = { isa = XCConfigurationList; buildConfigurations = (AA60E62D3E7BAEF305ADABEA, 3D553B551D2688E2E7A15153,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-		98F54143AB4E86B28C3AFEE0 = { isa = PBXProject; attributes = { BuildIndependentTargetsInParallel = YES; LastUpgradeCheck = 2700; TargetAttributes = { 857FB890F34C89A98D3B8B45 = { TestTargetID = E03F3D22E0364C0B0D35D64E; }; A8939ED11931342DBE813DD0 = { TestTargetID = E03F3D22E0364C0B0D35D64E; }; }; }; buildConfigurationList = 640DC9EFD529235A8D9E2727; compatibilityVersion = "Xcode 14.0"; developmentRegion = fr; hasScannedForEncodings = 0; knownRegions = (fr, en, Base); mainGroup = B28B7AF69320201D1CF206EB; productRefGroup = FBDC4F23F93125BBEEAE800C; projectDirPath = ""; projectRoot = ""; targets = (E03F3D22E0364C0B0D35D64E, 857FB890F34C89A98D3B8B45, A8939ED11931342DBE813DD0,); };
+
+/* Begin PBXBuildFile section */
+		1C8C531DE641454C6C2AC089 /* Sprout/Views/WateringCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548B8A01CDBF5DE2E8839A31 /* Sprout/Views/WateringCalendarView.swift */; };
+		299A3858320494B047A312EC /* Sprout/Views/PlantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7BB0A6E2A861F5EC53CA5A /* Sprout/Views/PlantListView.swift */; };
+		2CBA229177189CB1CCDE1CBA /* Sprout/Views/PlantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232A3A0D9E8A2E865DDF0EE6 /* Sprout/Views/PlantDetailView.swift */; };
+		320453F85315F89D7F3A7974 /* Sprout/Views/SproutStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1E5EA7253DF83ECF2D512 /* Sprout/Views/SproutStyle.swift */; };
+		51F46F24C1014CCB2C8CA8A3 /* Sprout/Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B335F8997D46D3A6B63FD11 /* Sprout/Models.swift */; };
+		602CD52D35F84AA9A2AC1192 /* Sprout/Views/RoomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602CD52D35F84AA9A2AC1191 /* Sprout/Views/RoomViews.swift */; };
+		602CD52D35F84AA9A2AC1194 /* SproutTests/RoomStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602CD52D35F84AA9A2AC1193 /* SproutTests/RoomStoreTests.swift */; };
+		602CD52D35F84AA9A2AC1202 /* Sprout/Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602CD52D35F84AA9A2AC1201 /* Sprout/Localization.swift */; };
+		602CD52D35F84AA9A2AC1204 /* Sprout/Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 602CD52D35F84AA9A2AC1203 /* Sprout/Localizable.xcstrings */; };
+		602CD52D35F84AA9A2AC1206 /* SproutTests/LocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602CD52D35F84AA9A2AC1205 /* SproutTests/LocalizationTests.swift */; };
+		716E9590E60B3AFA6E62BF18 /* Sprout/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3685E330EC5277A9DD5661C6 /* Sprout/Assets.xcassets */; };
+		7FC07332D7918B4C42AB0347 /* SproutTests/WateringScheduleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74CD8BBD2DDB178934BEFA1 /* SproutTests/WateringScheduleTests.swift */; };
+		824258268DC96D43867C4CFD /* SproutTests/PlantStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98873DDF47AD38DD4147190 /* SproutTests/PlantStoreTests.swift */; };
+		87AA860B94AEA89EE8BDE9FD /* Sprout/Views/PlantEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CCBCD4327BAC1CD85D715D /* Sprout/Views/PlantEditorView.swift */; };
+		A9CEB232096A8C422F476BEA /* Sprout/WateringSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25FBC87D70AF84D03B1DC2C /* Sprout/WateringSchedule.swift */; };
+		B7BB68A07BF70327C5828F88 /* Sprout/PlantStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B37AD269C5BBB48EE80AF6 /* Sprout/PlantStore.swift */; };
+		DFCCCF5258F6116ADE5C59BA /* Sprout/SproutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DB9BE714367A7EB4BD58AC /* Sprout/SproutApp.swift */; };
+		ED981846D067763F8C1DD893 /* SproutUITests/SproutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264E170CA7C68F5A835D29CD /* SproutUITests/SproutUITests.swift */; };
+		A10747000000000000000002 /* Sprout/PlantPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10747000000000000000001 /* Sprout/PlantPhoto.swift */; };
+		A10747000000000000000004 /* Sprout/Views/PlantPhotoViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10747000000000000000003 /* Sprout/Views/PlantPhotoViews.swift */; };
+		A10747000000000000000006 /* Sprout/InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A10747000000000000000005 /* Sprout/InfoPlist.xcstrings */; };
+		A10747000000000000000008 /* SproutTests/PlantPhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10747000000000000000007 /* SproutTests/PlantPhotoTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5F754D85B9653FE42DC647AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98F54143AB4E86B28C3AFEE0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E03F3D22E0364C0B0D35D64E;
+			remoteInfo = Sprout;
+		};
+		B60FA5859BA8F9CD0AEDE1A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98F54143AB4E86B28C3AFEE0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E03F3D22E0364C0B0D35D64E;
+			remoteInfo = Sprout;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		232A3A0D9E8A2E865DDF0EE6 /* Sprout/Views/PlantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/Views/PlantDetailView.swift; sourceTree = SOURCE_ROOT; };
+		264E170CA7C68F5A835D29CD /* SproutUITests/SproutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutUITests/SproutUITests.swift; sourceTree = SOURCE_ROOT; };
+		31CCBCD4327BAC1CD85D715D /* Sprout/Views/PlantEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/Views/PlantEditorView.swift; sourceTree = SOURCE_ROOT; };
+		3685E330EC5277A9DD5661C6 /* Sprout/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Sprout/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		3B335F8997D46D3A6B63FD11 /* Sprout/Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/Models.swift; sourceTree = SOURCE_ROOT; };
+		548B8A01CDBF5DE2E8839A31 /* Sprout/Views/WateringCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/Views/WateringCalendarView.swift; sourceTree = SOURCE_ROOT; };
+		602CD52D35F84AA9A2AC1191 /* Sprout/Views/RoomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/Views/RoomViews.swift; sourceTree = SOURCE_ROOT; };
+		602CD52D35F84AA9A2AC1193 /* SproutTests/RoomStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutTests/RoomStoreTests.swift; sourceTree = SOURCE_ROOT; };
+		602CD52D35F84AA9A2AC1201 /* Sprout/Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/Localization.swift; sourceTree = SOURCE_ROOT; };
+		602CD52D35F84AA9A2AC1203 /* Sprout/Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Sprout/Localizable.xcstrings; sourceTree = SOURCE_ROOT; };
+		602CD52D35F84AA9A2AC1205 /* SproutTests/LocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutTests/LocalizationTests.swift; sourceTree = SOURCE_ROOT; };
+		6FE1E5EA7253DF83ECF2D512 /* Sprout/Views/SproutStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/Views/SproutStyle.swift; sourceTree = SOURCE_ROOT; };
+		9493420D5F00EDAC814CB356 /* SproutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SproutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5B37AD269C5BBB48EE80AF6 /* Sprout/PlantStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/PlantStore.swift; sourceTree = SOURCE_ROOT; };
+		B9E9CC71C281D5CCB04E6AFE /* Sprout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sprout.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C25FBC87D70AF84D03B1DC2C /* Sprout/WateringSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/WateringSchedule.swift; sourceTree = SOURCE_ROOT; };
+		C28EC01E846C57D5A23CE0E9 /* SproutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SproutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3DB9BE714367A7EB4BD58AC /* Sprout/SproutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/SproutApp.swift; sourceTree = SOURCE_ROOT; };
+		C98873DDF47AD38DD4147190 /* SproutTests/PlantStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutTests/PlantStoreTests.swift; sourceTree = SOURCE_ROOT; };
+		E74CD8BBD2DDB178934BEFA1 /* SproutTests/WateringScheduleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutTests/WateringScheduleTests.swift; sourceTree = SOURCE_ROOT; };
+		FF7BB0A6E2A861F5EC53CA5A /* Sprout/Views/PlantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/Views/PlantListView.swift; sourceTree = SOURCE_ROOT; };
+		A10747000000000000000001 /* Sprout/PlantPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/PlantPhoto.swift; sourceTree = SOURCE_ROOT; };
+		A10747000000000000000003 /* Sprout/Views/PlantPhotoViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/Views/PlantPhotoViews.swift; sourceTree = SOURCE_ROOT; };
+		A10747000000000000000005 /* Sprout/InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Sprout/InfoPlist.xcstrings; sourceTree = SOURCE_ROOT; };
+		A10747000000000000000007 /* SproutTests/PlantPhotoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutTests/PlantPhotoTests.swift; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		26721FD0E94263C0F54AD575 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F83F4E5467C94488393C605 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97A6C0D3BD2FD56898CA6D96 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		634D9587B161E268488B3275 /* SproutUITests */ = {
+			isa = PBXGroup;
+			children = (
+				264E170CA7C68F5A835D29CD /* SproutUITests/SproutUITests.swift */,
+			);
+			name = SproutUITests;
+			sourceTree = "<group>";
+		};
+		6FC350687E8726A3EA958698 /* SproutTests */ = {
+			isa = PBXGroup;
+			children = (
+				A10747000000000000000007 /* SproutTests/PlantPhotoTests.swift */,
+				602CD52D35F84AA9A2AC1205 /* SproutTests/LocalizationTests.swift */,
+				602CD52D35F84AA9A2AC1193 /* SproutTests/RoomStoreTests.swift */,
+				E74CD8BBD2DDB178934BEFA1 /* SproutTests/WateringScheduleTests.swift */,
+				C98873DDF47AD38DD4147190 /* SproutTests/PlantStoreTests.swift */,
+			);
+			name = SproutTests;
+			sourceTree = "<group>";
+		};
+		B28B7AF69320201D1CF206EB = {
+			isa = PBXGroup;
+			children = (
+				B98F8430F64D14534C71E0E4 /* Sprout */,
+				6FC350687E8726A3EA958698 /* SproutTests */,
+				634D9587B161E268488B3275 /* SproutUITests */,
+				FBDC4F23F93125BBEEAE800C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B98F8430F64D14534C71E0E4 /* Sprout */ = {
+			isa = PBXGroup;
+			children = (
+				A10747000000000000000005 /* Sprout/InfoPlist.xcstrings */,
+				A10747000000000000000003 /* Sprout/Views/PlantPhotoViews.swift */,
+				A10747000000000000000001 /* Sprout/PlantPhoto.swift */,
+				602CD52D35F84AA9A2AC1201 /* Sprout/Localization.swift */,
+				602CD52D35F84AA9A2AC1203 /* Sprout/Localizable.xcstrings */,
+				602CD52D35F84AA9A2AC1191 /* Sprout/Views/RoomViews.swift */,
+				3B335F8997D46D3A6B63FD11 /* Sprout/Models.swift */,
+				B5B37AD269C5BBB48EE80AF6 /* Sprout/PlantStore.swift */,
+				C3DB9BE714367A7EB4BD58AC /* Sprout/SproutApp.swift */,
+				232A3A0D9E8A2E865DDF0EE6 /* Sprout/Views/PlantDetailView.swift */,
+				31CCBCD4327BAC1CD85D715D /* Sprout/Views/PlantEditorView.swift */,
+				FF7BB0A6E2A861F5EC53CA5A /* Sprout/Views/PlantListView.swift */,
+				6FE1E5EA7253DF83ECF2D512 /* Sprout/Views/SproutStyle.swift */,
+				548B8A01CDBF5DE2E8839A31 /* Sprout/Views/WateringCalendarView.swift */,
+				C25FBC87D70AF84D03B1DC2C /* Sprout/WateringSchedule.swift */,
+				3685E330EC5277A9DD5661C6 /* Sprout/Assets.xcassets */,
+			);
+			name = Sprout;
+			sourceTree = "<group>";
+		};
+		FBDC4F23F93125BBEEAE800C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B9E9CC71C281D5CCB04E6AFE /* Sprout.app */,
+				9493420D5F00EDAC814CB356 /* SproutTests.xctest */,
+				C28EC01E846C57D5A23CE0E9 /* SproutUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		857FB890F34C89A98D3B8B45 /* SproutTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 724CD87793E6308C18539048 /* Build configuration list for PBXNativeTarget "SproutTests" */;
+			buildPhases = (
+				937668BFF157CB3C809EDE69 /* Sources */,
+				7F83F4E5467C94488393C605 /* Frameworks */,
+				A560CB39CD302E8F568381FE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F9B687F1F7B2A2F4DBAC125B /* PBXTargetDependency */,
+			);
+			name = SproutTests;
+			productName = SproutTests;
+			productReference = 9493420D5F00EDAC814CB356 /* SproutTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A8939ED11931342DBE813DD0 /* SproutUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1112E29475D89AA081F0CC44 /* Build configuration list for PBXNativeTarget "SproutUITests" */;
+			buildPhases = (
+				0FEE37FDD2F6E7D356E3A5CA /* Sources */,
+				97A6C0D3BD2FD56898CA6D96 /* Frameworks */,
+				C3D8D4ABE279E17611F848BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6AB496F118B8C1A84B84B8C6 /* PBXTargetDependency */,
+			);
+			name = SproutUITests;
+			productName = SproutUITests;
+			productReference = C28EC01E846C57D5A23CE0E9 /* SproutUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		E03F3D22E0364C0B0D35D64E /* Sprout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E2E5BFF0E0AF7888EBB79E98 /* Build configuration list for PBXNativeTarget "Sprout" */;
+			buildPhases = (
+				4C418F1199125D30D6727C08 /* Sources */,
+				26721FD0E94263C0F54AD575 /* Frameworks */,
+				61127480EC7532AAC96C6BB7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Sprout;
+			productName = Sprout;
+			productReference = B9E9CC71C281D5CCB04E6AFE /* Sprout.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98F54143AB4E86B28C3AFEE0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					857FB890F34C89A98D3B8B45 = {
+						TestTargetID = E03F3D22E0364C0B0D35D64E;
+					};
+					A8939ED11931342DBE813DD0 = {
+						TestTargetID = E03F3D22E0364C0B0D35D64E;
+					};
+				};
+			};
+			buildConfigurationList = 640DC9EFD529235A8D9E2727 /* Build configuration list for PBXProject "Sprout" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = fr;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				fr,
+				en,
+				Base,
+			);
+			mainGroup = B28B7AF69320201D1CF206EB;
+			productRefGroup = FBDC4F23F93125BBEEAE800C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E03F3D22E0364C0B0D35D64E /* Sprout */,
+				857FB890F34C89A98D3B8B45 /* SproutTests */,
+				A8939ED11931342DBE813DD0 /* SproutUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		61127480EC7532AAC96C6BB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10747000000000000000006 /* Sprout/InfoPlist.xcstrings in Resources */,
+				602CD52D35F84AA9A2AC1204 /* Sprout/Localizable.xcstrings in Resources */,
+				716E9590E60B3AFA6E62BF18 /* Sprout/Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A560CB39CD302E8F568381FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3D8D4ABE279E17611F848BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0FEE37FDD2F6E7D356E3A5CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED981846D067763F8C1DD893 /* SproutUITests/SproutUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C418F1199125D30D6727C08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10747000000000000000004 /* Sprout/Views/PlantPhotoViews.swift in Sources */,
+				A10747000000000000000002 /* Sprout/PlantPhoto.swift in Sources */,
+				602CD52D35F84AA9A2AC1202 /* Sprout/Localization.swift in Sources */,
+				602CD52D35F84AA9A2AC1192 /* Sprout/Views/RoomViews.swift in Sources */,
+				51F46F24C1014CCB2C8CA8A3 /* Sprout/Models.swift in Sources */,
+				B7BB68A07BF70327C5828F88 /* Sprout/PlantStore.swift in Sources */,
+				DFCCCF5258F6116ADE5C59BA /* Sprout/SproutApp.swift in Sources */,
+				2CBA229177189CB1CCDE1CBA /* Sprout/Views/PlantDetailView.swift in Sources */,
+				87AA860B94AEA89EE8BDE9FD /* Sprout/Views/PlantEditorView.swift in Sources */,
+				299A3858320494B047A312EC /* Sprout/Views/PlantListView.swift in Sources */,
+				320453F85315F89D7F3A7974 /* Sprout/Views/SproutStyle.swift in Sources */,
+				1C8C531DE641454C6C2AC089 /* Sprout/Views/WateringCalendarView.swift in Sources */,
+				A9CEB232096A8C422F476BEA /* Sprout/WateringSchedule.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		937668BFF157CB3C809EDE69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10747000000000000000008 /* SproutTests/PlantPhotoTests.swift in Sources */,
+				602CD52D35F84AA9A2AC1206 /* SproutTests/LocalizationTests.swift in Sources */,
+				602CD52D35F84AA9A2AC1194 /* SproutTests/RoomStoreTests.swift in Sources */,
+				7FC07332D7918B4C42AB0347 /* SproutTests/WateringScheduleTests.swift in Sources */,
+				824258268DC96D43867C4CFD /* SproutTests/PlantStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6AB496F118B8C1A84B84B8C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E03F3D22E0364C0B0D35D64E /* Sprout */;
+			targetProxy = B60FA5859BA8F9CD0AEDE1A6 /* PBXContainerItemProxy */;
+		};
+		F9B687F1F7B2A2F4DBAC125B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E03F3D22E0364C0B0D35D64E /* Sprout */;
+			targetProxy = 5F754D85B9653FE42DC647AD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3D553B551D2688E2E7A15153 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		73882622AEF33595DA45E335 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sprout.sproutuitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Sprout;
+			};
+			name = Release;
+		};
+		7F11D5A00C66AD8023D7E20B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sprout.sprouttests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sprout.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sprout";
+			};
+			name = Release;
+		};
+		A9906DA17E1CB63FC1E19A33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8P372AMHR3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Sprout;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Sprout utilise l’appareil photo pour ajouter une photo à votre plante.";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicolascompere.sprout;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA60E62D3E7BAEF305ADABEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		ACF966C68C8D54A7A74E80FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8P372AMHR3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Sprout;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Sprout utilise l’appareil photo pour ajouter une photo à votre plante.";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicolascompere.sprout;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B0ABBA5ADEABD00441CA2F1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sprout.sprouttests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sprout.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sprout";
+			};
+			name = Debug;
+		};
+		C42B3126792A061C827092CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sprout.sproutuitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Sprout;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1112E29475D89AA081F0CC44 /* Build configuration list for PBXNativeTarget "SproutUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C42B3126792A061C827092CD /* Debug */,
+				73882622AEF33595DA45E335 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		640DC9EFD529235A8D9E2727 /* Build configuration list for PBXProject "Sprout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA60E62D3E7BAEF305ADABEA /* Debug */,
+				3D553B551D2688E2E7A15153 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		724CD87793E6308C18539048 /* Build configuration list for PBXNativeTarget "SproutTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0ABBA5ADEABD00441CA2F1C /* Debug */,
+				7F11D5A00C66AD8023D7E20B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E2E5BFF0E0AF7888EBB79E98 /* Build configuration list for PBXNativeTarget "Sprout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9906DA17E1CB63FC1E19A33 /* Debug */,
+				ACF966C68C8D54A7A74E80FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
 	};
-	rootObject = 98F54143AB4E86B28C3AFEE0;
+	rootObject = 98F54143AB4E86B28C3AFEE0 /* Project object */;
 }

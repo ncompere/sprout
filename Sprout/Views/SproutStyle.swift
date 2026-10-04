@@ -72,7 +72,7 @@ struct PlantRow: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            PlantSymbol()
+            PlantThumbnail(photoData: plant.photoData)
             VStack(alignment: .leading, spacing: 6) {
                 Text(plant.name).font(.headline).foregroundStyle(.primary)
                 if showsRoom {

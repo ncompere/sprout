@@ -9,6 +9,7 @@ final class Plant {
     var firstDueDate: Date
     var createdAt: Date
     var room: Room?
+    @Attribute(.externalStorage) var photoData: Data?
     @Relationship(deleteRule: .cascade, inverse: \Watering.plant)
     var waterings: [Watering] = []
 

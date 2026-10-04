@@ -462,6 +462,22 @@
         }
       }
     },
+    "Autorisez Sprout à utiliser l’appareil photo dans les réglages pour photographier votre plante.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisez Sprout à utiliser l’appareil photo dans les réglages pour photographier votre plante."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow Sprout to use the camera in Settings to photograph your plant."
+          }
+        }
+      }
+    },
     "Calendrier": {
       "localizations": {
         "fr": {
@@ -538,6 +554,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "A place for every plant"
+          }
+        }
+      }
+    },
+    "Chargement de la photo…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chargement de la photo…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loading photo…"
+          }
+        }
+      }
+    },
+    "Choisir une photo": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir une photo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a photo"
           }
         }
       }
@@ -783,6 +831,22 @@
         }
       }
     },
+    "Impossible de charger cette photo. La photo précédente est conservée ; réessayez ou choisissez une autre image.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de charger cette photo. La photo précédente est conservée ; réessayez ou choisissez une autre image."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unable to load this photo. The previous photo is kept; try again or choose another image."
+          }
+        }
+      }
+    },
     "Impossible d’ouvrir les données. Réessayez pour retrouver vos plantes.": {
       "localizations": {
         "fr": {
@@ -911,6 +975,22 @@
         }
       },
       "comment": "The placeholder is the next watering date, already formatted in the active locale."
+    },
+    "L’appareil photo est indisponible. Choisissez une image dans votre photothèque.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’appareil photo est indisponible. Choisissez une image dans votre photothèque."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The camera is unavailable. Choose an image from your photo library."
+          }
+        }
+      }
     },
     "L’arrosage n’a pas été annulé. Réessayez.": {
       "localizations": {
@@ -1152,6 +1232,22 @@
         }
       }
     },
+    "Ouvrir les réglages": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir les réglages"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Settings"
+          }
+        }
+      }
+    },
     "Par arrosage": {
       "localizations": {
         "fr": {
@@ -1184,6 +1280,70 @@
         }
       }
     },
+    "Photo": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photo"
+          }
+        }
+      }
+    },
+    "Photo de %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photo de %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photo of %@"
+          }
+        }
+      }
+    },
+    "Photo de la plante": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photo de la plante"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plant photo"
+          }
+        }
+      }
+    },
+    "Photo indisponible": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photo indisponible"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photo unavailable"
+          }
+        }
+      }
+    },
     "Pièce": {
       "localizations": {
         "fr": {
@@ -1212,6 +1372,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "First watering"
+          }
+        }
+      }
+    },
+    "Prendre une photo": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prendre une photo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Take a photo"
           }
         }
       }
@@ -1410,6 +1586,22 @@
         }
       },
       "comment": "Deletion confirmation for a plant or room. The placeholder is a user-entered name."
+    },
+    "Supprimer la photo": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer la photo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove photo"
+          }
+        }
+      }
     },
     "Supprimer la pièce": {
       "localizations": {
