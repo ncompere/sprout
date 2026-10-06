@@ -3,6 +3,7 @@ import SwiftData
 
 @MainActor
 struct PlantStore {
+    static let didCommit = Notification.Name("Sprout.gardenDidCommit")
     let context: ModelContext
     private let saveChanges: () throws -> Void
 
@@ -38,7 +39,7 @@ struct PlantStore {
 
     @discardableResult
     func savePlant(_ plant: Plant? = nil, name: String, intervalDays: Int, firstDueDate: Date,
-                   room: Room?, photoData: Data?) throws -> Plant {
+                   room: Room?, photoData: Data?, remindersIncluded: Bool? = nil) throws -> Plant {
         try Self.validate(name: name, intervalDays: intervalDays, firstDueDate: firstDueDate)
         let name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         let date = WateringSchedule.calendar.startOfDay(for: firstDueDate)
@@ -52,11 +53,13 @@ struct PlantStore {
             let previousInterval = plant.intervalDays
             let previousDate = plant.firstDueDate
             let previousPhoto = plant.photoData
+            let previousReminders = plant.remindersIncluded
             restore = {
                 plant.name = previousName
                 plant.intervalDays = previousInterval
                 plant.firstDueDate = previousDate
                 plant.photoData = previousPhoto
+                plant.remindersIncluded = previousReminders
                 plant.room = previousRoom
                 previousMembers.forEach { $0.0.plants = $0.1 }
             }
@@ -69,6 +72,7 @@ struct PlantStore {
             context.insert(savedPlant)
         }
         savedPlant.photoData = photoData
+        if let remindersIncluded { savedPlant.remindersIncluded = remindersIncluded }
         setRoom(room, for: savedPlant)
         try commit(restoring: restore)
         return savedPlant
@@ -184,5 +188,6 @@ struct PlantStore {
             context.rollback()
             throw error
         }
+        NotificationCenter.default.post(name: Self.didCommit, object: context)
     }
 }

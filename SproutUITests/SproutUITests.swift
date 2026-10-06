@@ -405,6 +405,206 @@ final class SproutUITests: XCTestCase {
         checkWateringPresentation(app: app, name: "Case agrandie \(UUID().uuidString.prefix(6))")
     }
 
+    private func launchReminders(style: String = "Light", largeText: Bool = false,
+                                 denied: Bool = false, fail: Bool = false, real: Bool = false) -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchArguments = ["-AppleLanguages", "(\(language))", "-AppleLocale", region,
+                               "--uitest-reminders", style == "Dark" ? "--uitest-dark" : "--uitest-light"]
+        app.launchEnvironment["UITEST_REMINDERS_SUITE"] = "Sprout.reminderUITests.\(UUID())"
+        if largeText { app.launchArguments += ["--uitest-large-text"] }
+        if denied { app.launchArguments += ["--uitest-reminders-denied"] }
+        if fail { app.launchArguments += ["--uitest-reminders-error"] }
+        if real { app.launchArguments += ["--uitest-reminders-real"] }
+        app.launch()
+        return app
+    }
+
+    private func tapReminderToggle(_ toggle: XCUIElement) {
+        // Native Form toggles expose the entire row to XCTest. Tap the trailing
+        // switch itself, rather than the center of its noninteractive text label.
+        for _ in 0..<6 {
+            if toggle.exists && toggle.isHittable { break }
+            XCUIApplication().collectionViews.firstMatch.swipeDown()
+        }
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
+    }
+
+    private func checkReminderSettings(style: String = "Light", largeText: Bool = false) {
+        let app = launchReminders(style: style, largeText: largeText)
+        let settings = language == "fr" ? "Réglages" : "Settings"
+        app.tabBars.buttons[settings].tap()
+        let enabled = app.switches["reminders.enabled"]
+        XCTAssertTrue(enabled.waitForExistence(timeout: 5))
+        XCTAssertEqual(enabled.value as? String, "0")
+        XCTAssertTrue(app.datePickers["reminders.time"].exists)
+        tapReminderToggle(enabled)
+        XCTAssertEqual(enabled.value as? String, "1")
+        let allowed = language == "fr" ? "Notifications autorisées" : "Notifications allowed"
+        if largeText {
+            capture("Réglages des rappels — horaire agrandi", app: app)
+            reveal(app.staticTexts[allowed], app: app)
+        }
+        XCTAssertTrue(app.staticTexts[allowed].waitForExistence(timeout: 5))
+        capture("Réglages des rappels", app: app)
+        app.terminate()
+        app.launch()
+        app.tabBars.buttons[settings].tap()
+        XCTAssertEqual(app.switches["reminders.enabled"].value as? String, "1")
+        tapReminderToggle(app.switches["reminders.enabled"])
+        XCTAssertEqual(app.switches["reminders.enabled"].value as? String, "0")
+    }
+
+    func testReminderSettingsFrench() { checkReminderSettings() }
+
+    func testReminderSettingsEnglishDark() {
+        language = "en"; region = "en_US"
+        checkReminderSettings(style: "Dark")
+    }
+
+    func testReminderSettingsFrenchLargestText() { checkReminderSettings(largeText: true) }
+
+    func testReminderPermissionDeniedAndColdStartCalendar() {
+        let app = launchReminders(denied: true)
+        app.tabBars.buttons["Réglages"].tap()
+        let enabled = app.switches["reminders.enabled"]
+        tapReminderToggle(enabled)
+        XCTAssertEqual(enabled.value as? String, "1")
+        XCTAssertTrue(app.buttons["reminders.systemSettings"].waitForExistence(timeout: 5))
+        capture("Rappels — autorisation refusée", app: app)
+        app.terminate()
+        app.launchArguments += ["--uitest-open-reminder"]
+        app.launch()
+        let selected = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isSelected == true"),
+                                                 object: app.tabBars.buttons["Calendrier"])
+        XCTAssertEqual(XCTWaiter.wait(for: [selected], timeout: 5), .completed)
+        app.tabBars.buttons["Réglages"].tap()
+        XCTAssertEqual(app.switches["reminders.enabled"].value as? String, "1")
+        tapReminderToggle(app.switches["reminders.enabled"])
+    }
+
+    func testReminderPlantExclusionAndRetry() {
+        let app = launchReminders(fail: true)
+        let name = "Rappel UI \(UUID().uuidString.prefix(8))"
+        app.buttons["plants.add"].tap()
+        app.textFields["editor.name"].tap()
+        app.textFields["editor.name"].typeText(name)
+        let included = app.switches["editor.reminders"]
+        reveal(included, app: app)
+        XCTAssertEqual(included.value as? String, "1")
+        tapReminderToggle(included)
+        app.buttons["editor.cancel"].tap()
+        app.buttons["plants.add"].tap()
+        app.textFields["editor.name"].tap()
+        app.textFields["editor.name"].typeText(name)
+        reveal(app.switches["editor.reminders"], app: app)
+        XCTAssertEqual(app.switches["editor.reminders"].value as? String, "1")
+        app.buttons["editor.save"].tap()
+        app.tabBars.buttons["Réglages"].tap()
+        tapReminderToggle(app.switches["reminders.enabled"])
+        let error = app.staticTexts["reminders.error"]
+        XCTAssertTrue(error.waitForExistence(timeout: 5))
+        capture("Rappels — erreur et reprise", app: app)
+        app.buttons["reminders.retry"].tap()
+        let cleared = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: error)
+        XCTAssertEqual(XCTWaiter.wait(for: [cleared], timeout: 5), .completed)
+        app.tabBars.buttons["Mes plantes"].tap()
+        reveal(app.staticTexts[name], app: app)
+        app.staticTexts[name].tap()
+        app.buttons["plant.edit"].tap()
+        reveal(app.switches["editor.reminders"], app: app)
+        tapReminderToggle(app.switches["editor.reminders"])
+        app.buttons["editor.save"].tap()
+        app.terminate()
+        app.launch()
+        reveal(app.staticTexts[name], app: app)
+        app.staticTexts[name].tap()
+        app.buttons["plant.edit"].tap()
+        reveal(app.switches["editor.reminders"], app: app)
+        XCTAssertEqual(app.switches["editor.reminders"].value as? String, "0")
+        app.buttons["editor.cancel"].tap()
+        reveal(app.buttons["plant.delete"], app: app)
+        app.buttons["plant.delete"].tap()
+        app.buttons["plant.confirmDelete"].tap()
+        // Deletion pops the native navigation stack. Relaunch before switching tabs
+        // so the pop transition cannot consume the cleanup tap on a small screen.
+        app.terminate()
+        app.launch()
+        XCTAssertFalse(app.staticTexts[name].exists)
+        app.tabBars.buttons["Réglages"].tap()
+        tapReminderToggle(app.switches["reminders.enabled"])
+    }
+
+    func testReminderActualDeliveryAndTapOnPhysicalDevice() throws {
+        #if targetEnvironment(simulator)
+        throw XCTSkip("Actual closed-app delivery on iPhone requires a physical device.")
+        #else
+        checkActualReminderDeliveryAndTap()
+        #endif
+    }
+
+    func testReminderActualDeliveryAndTapOnSimulator() throws {
+        #if targetEnvironment(simulator)
+        checkActualReminderDeliveryAndTap()
+        #else
+        throw XCTSkip("Simulator delivery is covered by the physical-device test on iPhone.")
+        #endif
+    }
+
+    private func checkActualReminderDeliveryAndTap() {
+        let app = launchReminders(real: true)
+        let name = "Rappel réel UI \(UUID().uuidString.prefix(8))"
+        var saved = false
+        defer {
+            // A notification cold start does not inherit XCTest launch arguments.
+            // Relaunch explicitly into the isolated preferences before cleanup.
+            app.terminate()
+            app.launch()
+            let settings = app.tabBars.buttons.matching(NSPredicate(format: "label IN %@", ["Réglages", "Settings"])).firstMatch
+            settings.tap()
+            let enabled = app.switches["reminders.enabled"]
+            if enabled.value as? String == "1" { tapReminderToggle(enabled) }
+            if saved {
+                app.tabBars.buttons.matching(NSPredicate(format: "label IN %@", ["Mes plantes", "My plants"])).firstMatch.tap()
+                reveal(app.staticTexts[name], app: app)
+                app.staticTexts[name].tap()
+                reveal(app.buttons["plant.delete"], app: app)
+                app.buttons["plant.delete"].tap()
+                app.buttons["plant.confirmDelete"].tap()
+            }
+            app.terminate()
+            app.launchArguments.removeAll { $0.hasPrefix("--uitest-reminders") }
+            app.launchEnvironment.removeValue(forKey: "UITEST_REMINDERS_SUITE")
+            app.launch()
+        }
+        app.buttons["plants.add"].tap()
+        app.textFields["editor.name"].tap()
+        app.textFields["editor.name"].typeText(name)
+        app.buttons["editor.save"].tap()
+        saved = true
+        app.tabBars.buttons["Réglages"].tap()
+        tapReminderToggle(app.switches["reminders.enabled"])
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let permission = springboard.alerts.firstMatch
+        if permission.waitForExistence(timeout: 3) {
+            permission.buttons.matching(NSPredicate(format: "label IN %@", ["Autoriser", "Allow"])).firstMatch.tap()
+        }
+        XCTAssertTrue(app.staticTexts["Notifications autorisées"].waitForExistence(timeout: 5))
+        capture("Rappels — autorisation réelle", app: app)
+        XCUIDevice.shared.press(.home)
+        app.terminate()
+        let notification = springboard.staticTexts["C’est l’heure d’arroser"].firstMatch
+        XCTAssertTrue(notification.waitForExistence(timeout: 140))
+        let screenshot = XCTAttachment(screenshot: springboard.screenshot())
+        screenshot.name = "Rappel réel — Sprout fermé"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+        notification.tap()
+        let calendar = app.tabBars.buttons.matching(NSPredicate(format: "label IN %@", ["Calendrier", "Calendar"])).firstMatch
+        let selected = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isSelected == true"), object: calendar)
+        XCTAssertEqual(XCTWaiter.wait(for: [selected], timeout: 10), .completed)
+        capture("Rappel réel — calendrier ouvert", app: app)
+    }
+
     func testRoomsLifecycleAndRememberedGroupingFrench() {
         language = "fr"
         region = "fr_FR"

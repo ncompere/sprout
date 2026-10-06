@@ -29,6 +29,10 @@
 		A10747000000000000000004 /* Sprout/Views/PlantPhotoViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10747000000000000000003 /* Sprout/Views/PlantPhotoViews.swift */; };
 		A10747000000000000000006 /* Sprout/InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A10747000000000000000005 /* Sprout/InfoPlist.xcstrings */; };
 		A10747000000000000000008 /* SproutTests/PlantPhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10747000000000000000007 /* SproutTests/PlantPhotoTests.swift */; };
+		A11006000000000000000002 /* Sprout/WateringReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11006000000000000000001 /* Sprout/WateringReminders.swift */; };
+		A11006000000000000000004 /* Sprout/ReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11006000000000000000003 /* Sprout/ReminderService.swift */; };
+		A11006000000000000000006 /* Sprout/Views/ReminderSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11006000000000000000005 /* Sprout/Views/ReminderSettingsView.swift */; };
+		A11006000000000000000008 /* SproutTests/WateringReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11006000000000000000007 /* SproutTests/WateringReminderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +78,10 @@
 		A10747000000000000000003 /* Sprout/Views/PlantPhotoViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/Views/PlantPhotoViews.swift; sourceTree = SOURCE_ROOT; };
 		A10747000000000000000005 /* Sprout/InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Sprout/InfoPlist.xcstrings; sourceTree = SOURCE_ROOT; };
 		A10747000000000000000007 /* SproutTests/PlantPhotoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutTests/PlantPhotoTests.swift; sourceTree = SOURCE_ROOT; };
+		A11006000000000000000001 /* Sprout/WateringReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/WateringReminders.swift; sourceTree = SOURCE_ROOT; };
+		A11006000000000000000003 /* Sprout/ReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/ReminderService.swift; sourceTree = SOURCE_ROOT; };
+		A11006000000000000000005 /* Sprout/Views/ReminderSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprout/Views/ReminderSettingsView.swift; sourceTree = SOURCE_ROOT; };
+		A11006000000000000000007 /* SproutTests/WateringReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutTests/WateringReminderTests.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +120,7 @@
 		6FC350687E8726A3EA958698 /* SproutTests */ = {
 			isa = PBXGroup;
 			children = (
+				A11006000000000000000007 /* SproutTests/WateringReminderTests.swift */,
 				A10747000000000000000007 /* SproutTests/PlantPhotoTests.swift */,
 				602CD52D35F84AA9A2AC1205 /* SproutTests/LocalizationTests.swift */,
 				602CD52D35F84AA9A2AC1193 /* SproutTests/RoomStoreTests.swift */,
@@ -134,6 +143,9 @@
 		B98F8430F64D14534C71E0E4 /* Sprout */ = {
 			isa = PBXGroup;
 			children = (
+				A11006000000000000000005 /* Sprout/Views/ReminderSettingsView.swift */,
+				A11006000000000000000003 /* Sprout/ReminderService.swift */,
+				A11006000000000000000001 /* Sprout/WateringReminders.swift */,
 				A10747000000000000000005 /* Sprout/InfoPlist.xcstrings */,
 				A10747000000000000000003 /* Sprout/Views/PlantPhotoViews.swift */,
 				A10747000000000000000001 /* Sprout/PlantPhoto.swift */,
@@ -298,6 +310,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A11006000000000000000006 /* Sprout/Views/ReminderSettingsView.swift in Sources */,
+				A11006000000000000000004 /* Sprout/ReminderService.swift in Sources */,
+				A11006000000000000000002 /* Sprout/WateringReminders.swift in Sources */,
 				A10747000000000000000004 /* Sprout/Views/PlantPhotoViews.swift in Sources */,
 				A10747000000000000000002 /* Sprout/PlantPhoto.swift in Sources */,
 				602CD52D35F84AA9A2AC1202 /* Sprout/Localization.swift in Sources */,
@@ -318,6 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A11006000000000000000008 /* SproutTests/WateringReminderTests.swift in Sources */,
 				A10747000000000000000008 /* SproutTests/PlantPhotoTests.swift in Sources */,
 				602CD52D35F84AA9A2AC1206 /* SproutTests/LocalizationTests.swift in Sources */,
 				602CD52D35F84AA9A2AC1194 /* SproutTests/RoomStoreTests.swift in Sources */,

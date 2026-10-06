@@ -4,6 +4,7 @@ import Combine
 
 @main
 struct SproutApp: App {
+    @UIApplicationDelegateAdaptor(SproutAppDelegate.self) private var appDelegate
     var body: some Scene {
         WindowGroup {
             StorageRootView()
@@ -58,7 +59,7 @@ private struct StorageRootView: View {
         .onChange(of: scenePhase) { _, phase in
             if phase == .active { refreshRegionalSettings() }
         }
-        .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification).receive(on: RunLoop.main)) { _ in
             refreshRegionalSettings()
         }
     }
@@ -84,19 +85,55 @@ private struct StorageRootView: View {
 
 private struct SproutRootView: View {
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.modelContext) private var context
     @State private var today = Date.now
+    @State private var selectedTab = "plants"
+    @State private var calendarPresentationID = UUID()
+    @StateObject private var reminders = ReminderCoordinator.live()
+    @ObservedObject private var reminderNavigation = ReminderNavigation.shared
     private let clock = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             PlantListView(today: today)
+                .tag("plants")
                 .tabItem { Label("Mes plantes", systemImage: "leaf").accessibilityIdentifier("tab.plants") }
             WateringCalendarView(today: today)
+                .id(calendarPresentationID)
+                .tag("calendar")
                 .tabItem { Label("Calendrier", systemImage: "calendar").accessibilityIdentifier("tab.calendar") }
+            ReminderSettingsView(reminders: reminders)
+                .tag("settings")
+                .tabItem { Label("Réglages", systemImage: "gearshape").accessibilityIdentifier("tab.settings") }
         }
-        .onReceive(clock) { today = $0 }
+        .task { reminders.configure(context: context) }
+        .onReceive(clock) { date in
+            if !WateringSchedule.calendar.isDate(today, inSameDayAs: date) { reminders.refresh() }
+            today = date
+        }
+        .onReceive(NotificationCenter.default.publisher(for: PlantStore.didCommit)) { event in
+            if let changed = event.object as? ModelContext, changed === context { reminders.refresh() }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification).receive(on: RunLoop.main)) { _ in
+            reminders.refresh()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name.NSSystemTimeZoneDidChange).receive(on: RunLoop.main)) { _ in
+            reminders.refresh()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification).receive(on: RunLoop.main)) { _ in
+            today = .now
+            reminders.refresh()
+        }
+        .onReceive(reminderNavigation.$calendarRequest.compactMap { $0 }) { request in
+            today = .now
+            calendarPresentationID = request
+            selectedTab = "calendar"
+        }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active { today = .now }
+            if phase == .active {
+                today = .now
+                reminders.refresh()
+            }
         }
     }
 }

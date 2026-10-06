@@ -4,6 +4,14 @@ These reports were moved from the README. They record checks reported during dev
 
 See [Developing Sprout](DEVELOPMENT.md#building-and-testing) for build and test instructions. Add future reports here only when they capture useful validation evidence, such as a release check, a migration, or a new supported environment.
 
+## October 6, 2026 — Watering reminders
+
+With Xcode 27.0, all 72 logic, persistence, migration, and localization tests pass on iOS 18.0. Debug and Release simulator builds succeed, as does a signed iOS device build. Reminder coverage includes daily summaries, exclusions, overdue follow-ups, far-future deadlines, the 60-request reserve, permissions, retries, concurrent changes, time zones, DST, and migration from storage containing photos.
+
+All 22 simulator UI flows have successful runs across iPhone SE (3rd generation) and iPhone 16. The full SE run initially passed 20 flows, skipped the physical-device check, and failed during cleanup of the new exclusion/retry flow. After stabilizing its navigation cleanup, that flow passes in a targeted rerun. This was not a single clean full-suite run. The final large-text settings flow also passes after placing the reminder-time label above its picker; French, English dark-mode, error, and large-text screenshots were inspected.
+
+The real notification-center flow passes on iPhone 16: iOS delivers a local reminder after Sprout is terminated, and tapping it cold-starts the app on today's calendar. The test cleans up its plant and temporary preferences. The physical iPhone test could not start: Xcode first waited for device unlock, then lost the test-runner connection before launch. Actual physical-device delivery remains unverified. The iOS 17 runtime was not available.
+
 ## October 1, 2026
 
 Verified on October 1, 2026 with Xcode 27: all 29 tests (26 logic/persistence tests and 3 UI tests) pass on iPhone SE (3rd generation), iOS 18.2. UI flows also pass on iPhone 17, iOS 26.2. An additional check on iPhone SE with the largest system text size passes, with light, dark, and enlarged-text screenshots inspected. Debug and Release builds for the simulator succeed. The iOS 17 runtime was not installed, so the minimum supported version was not run here.

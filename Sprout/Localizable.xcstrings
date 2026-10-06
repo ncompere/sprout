@@ -206,6 +206,23 @@
         }
       }
     },
+    "Activez les rappels pour autoriser les notifications.": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activez les rappels pour autoriser les notifications."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable reminders to allow notifications."
+          }
+        }
+      }
+    },
     "Ajouter une plante": {
       "localizations": {
         "fr": {
@@ -462,6 +479,40 @@
         }
       }
     },
+    "Autorisation iOS": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisation iOS"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS permission"
+          }
+        }
+      }
+    },
+    "Autorisation indisponible": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisation indisponible"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permission unavailable"
+          }
+        }
+      }
+    },
     "Autorisez Sprout à utiliser l’appareil photo dans les réglages pour photographier votre plante.": {
       "localizations": {
         "fr": {
@@ -618,6 +669,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Create rooms to organize your garden."
+          }
+        }
+      }
+    },
+    "C’est l’heure d’arroser": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "C’est l’heure d’arroser"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time to water your plants"
           }
         }
       }
@@ -783,6 +851,48 @@
         }
       }
     },
+    "Et %lld autre plante.": {
+      "comment": "The number of additional plants not named in the watering notification.",
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Et %lld autre plante."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Et %lld autres plantes."
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "And %lld other plant."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "And %lld other plants."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Fermer": {
       "localizations": {
         "fr": {
@@ -831,6 +941,23 @@
         }
       }
     },
+    "Heure du rappel": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heure du rappel"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminder time"
+          }
+        }
+      }
+    },
     "Impossible de charger cette photo. La photo précédente est conservée ; réessayez ou choisissez une autre image.": {
       "localizations": {
         "fr": {
@@ -859,6 +986,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Unable to open your data. Try again to access your plants."
+          }
+        }
+      }
+    },
+    "Inclure dans les rappels": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inclure dans les rappels"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Include in reminders"
           }
         }
       }
@@ -975,6 +1119,57 @@
         }
       },
       "comment": "The placeholder is the next watering date, already formatted in the active locale."
+    },
+    "Les 60 prochains rappels sont préparés sur cet appareil. Ouvrir Sprout renouvelle cette réserve. Une fois les rappels épuisés, rouvrez l’application pour les reprendre.": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les 60 prochains rappels sont préparés sur cet appareil. Ouvrir Sprout renouvelle cette réserve. Une fois les rappels épuisés, rouvrez l’application pour les reprendre."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The next 60 reminders are prepared on this device. Opening Sprout replenishes them. When they run out, reopen the app to resume reminders."
+          }
+        }
+      }
+    },
+    "Les rappels n’ont pas pu être mis à jour. Réessayez.": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les rappels n’ont pas pu être mis à jour. Réessayez."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders could not be updated. Please try again."
+          }
+        }
+      }
+    },
+    "Les rappels s’activent dans Réglages. Vous pouvez exclure cette plante du résumé quotidien.": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les rappels s’activent dans Réglages. Vous pouvez exclure cette plante du résumé quotidien."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable reminders in Settings. You can exclude this plant from the daily summary."
+          }
+        }
+      }
     },
     "L’appareil photo est indisponible. Choisissez une image dans votre photothèque.": {
       "localizations": {
@@ -1152,6 +1347,74 @@
         }
       }
     },
+    "Notifications autorisées": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications autorisées"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications allowed"
+          }
+        }
+      }
+    },
+    "Notifications refusées. Autorisez-les dans les réglages iOS pour recevoir les rappels.": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications refusées. Autorisez-les dans les réglages iOS pour recevoir les rappels."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications denied. Allow them in iOS Settings to receive reminders."
+          }
+        }
+      }
+    },
+    "Notifications silencieuses autorisées": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications silencieuses autorisées"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quiet notifications allowed"
+          }
+        }
+      }
+    },
+    "Notifications temporairement autorisées": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications temporairement autorisées"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications temporarily allowed"
+          }
+        }
+      }
+    },
     "Nouvelle pièce": {
       "localizations": {
         "fr": {
@@ -1244,6 +1507,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open Settings"
+          }
+        }
+      }
+    },
+    "Ouvrir les réglages iOS": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir les réglages iOS"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open iOS Settings"
           }
         }
       }
@@ -1424,6 +1704,40 @@
         }
       }
     },
+    "Rappels d’arrosage": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rappels d’arrosage"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Watering reminders"
+          }
+        }
+      }
+    },
+    "Rappels hors ligne": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rappels hors ligne"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offline reminders"
+          }
+        }
+      }
+    },
     "Renommer %@": {
       "localizations": {
         "fr": {
@@ -1489,6 +1803,40 @@
         }
       }
     },
+    "Réglages": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réglages"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Settings"
+          }
+        }
+      }
+    },
+    "Résumé quotidien": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Résumé quotidien"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily summary"
+          }
+        }
+      }
+    },
     "Saisissez un nombre entier de jours supérieur ou égal à 1.": {
       "localizations": {
         "fr": {
@@ -1533,6 +1881,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Its plants will be moved to “No room”. The plants and their waterings will be kept."
+          }
+        }
+      }
+    },
+    "Si l’heure choisie est déjà passée, le prochain rappel commencera demain.": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si l’heure choisie est déjà passée, le prochain rappel commencera demain."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If the chosen time has already passed, the next reminder will start tomorrow."
           }
         }
       }
@@ -1704,6 +2069,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "A little care, a lot of life."
+          }
+        }
+      }
+    },
+    "Un rappel regroupe les plantes à arroser et celles en retard. Excluez une plante depuis son formulaire de modification.": {
+      "extractionState": "manual",
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un rappel regroupe les plantes à arroser et celles en retard. Excluez une plante depuis son formulaire de modification."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One reminder groups plants that are due or overdue. Exclude a plant by editing it."
           }
         }
       }

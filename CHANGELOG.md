@@ -6,6 +6,7 @@ This file tracks notable user-facing changes by release. Changes awaiting the fi
 
 ### Added
 
+- Offline daily watering reminders with a configurable time, overdue follow-ups, per-plant exclusions, and a Settings tab. The next 60 reminders are replenished whenever Sprout opens; tapping a reminder opens today's calendar.
 - An optional plant photo from the photo library or camera, with previews in the plant list, calendar agenda, and details and the ability to replace or remove it.
 - Plant tracking with configurable watering intervals and a monthly calendar showing scheduled, completed, and overdue waterings.
 - A **Watered today** checkbox to record or undo today's watering, with changes preserved after restarting the app.

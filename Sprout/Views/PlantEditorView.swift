@@ -12,6 +12,7 @@ struct PlantEditorView: View {
     @State private var firstDueDate: Date
     @State private var errorMessage: String?
     @State private var roomID: UUID?
+    @State private var remindersIncluded: Bool
     @State private var showingRoomCreator = false
     @StateObject private var photoDraft: PlantPhotoDraft
     @FocusState private var focusedField: Field?
@@ -23,6 +24,7 @@ struct PlantEditorView: View {
         _interval = State(initialValue: String(plant?.intervalDays ?? 7))
         _firstDueDate = State(initialValue: plant?.firstDueDate ?? .now)
         _roomID = State(initialValue: plant?.room?.id)
+        _remindersIncluded = State(initialValue: plant?.remindersIncluded ?? true)
         _photoDraft = StateObject(wrappedValue: PlantPhotoDraft(photoData: plant?.photoData))
     }
 
@@ -107,6 +109,12 @@ struct PlantEditorView: View {
                         Text("Après chaque arrosage enregistré, la prochaine date sera calculée selon cette fréquence.")
                     }
                 }
+                Section {
+                    Toggle("Inclure dans les rappels", isOn: $remindersIncluded)
+                        .accessibilityIdentifier("editor.reminders")
+                } footer: {
+                    Text("Les rappels s’activent dans Réglages. Vous pouvez exclure cette plante du résumé quotidien.")
+                }
             }
             .navigationTitle(editorTitle)
             .navigationBarTitleDisplayMode(.inline)
@@ -160,7 +168,8 @@ struct PlantEditorView: View {
             try PlantStore(context: context).savePlant(plant, name: name, intervalDays: days,
                                                      firstDueDate: firstDueDate,
                                                      room: rooms.first { $0.id == roomID },
-                                                     photoData: photoDraft.photoData)
+                                                     photoData: photoDraft.photoData,
+                                                     remindersIncluded: remindersIncluded)
             dismiss()
         } catch {
             errorMessage = String(localized: "Vos modifications n’ont pas été enregistrées. Vos saisies sont conservées ; réessayez.")

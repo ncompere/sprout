@@ -8,6 +8,7 @@ final class Plant {
     var intervalDays: Int
     var firstDueDate: Date
     var createdAt: Date
+    var remindersIncluded: Bool = true
     var room: Room?
     @Attribute(.externalStorage) var photoData: Data?
     @Relationship(deleteRule: .cascade, inverse: \Watering.plant)
